@@ -25,7 +25,6 @@ export default class ContactsScreen extends React.Component {
     let A = ['Andreas', 'Anders', 'Anne']
     let B = ['Beate','Brith','Boss']
     let C = ['Charlie','Comrade','Coco']
-    let plussSign = <Icon.Ionicons name='ios-add'/>
     return (
       <ScrollView style={styles.container}>
       <Icon.Ionicons name='ios-add' style={styles.addButton} onPress={this._onPressButton} color="blue"/>
