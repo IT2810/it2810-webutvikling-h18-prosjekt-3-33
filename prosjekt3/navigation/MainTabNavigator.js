@@ -2,39 +2,58 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
+// Icons for the navbar
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
+
+// Main components
+import GoalsScreen from '../screens/GoalsScreen';
+import CalendarScreen from '../screens/CalendarScreen';
+import ContactsScreen from '../screens/ContactsScreen'
 import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+const GoalsStack = createStackNavigator({
+  Goals: GoalsScreen,
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+GoalsStack.navigationOptions = {
+  tabBarLabel: 'Goals',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-pie${focused ? '' : '-outline'}`
+          : 'md-pie'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+
+const CalendarStack = createStackNavigator({
+  Calendar: CalendarScreen,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+CalendarStack.navigationOptions = {
+  tabBarLabel: 'Calendar',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-calendar${focused ? '' : '-outline'}` : 'md-calendar'}
+    />
+  ),
+};
+
+const ContactsStack = createStackNavigator({
+  Contacts: ContactsScreen,
+});
+
+ContactsStack.navigationOptions = {
+  tabBarLabel: 'Contacts',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      focused={focused}
+      name={Platform.OS === 'ios' ? `ios-contact${focused ? '' : '-outline'}` : 'md-contact'}
     />
   ),
 };
@@ -54,7 +73,8 @@ SettingsStack.navigationOptions = {
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  GoalsStack,
+  CalendarStack,
+  ContactsStack,
+  SettingsStack
 });
