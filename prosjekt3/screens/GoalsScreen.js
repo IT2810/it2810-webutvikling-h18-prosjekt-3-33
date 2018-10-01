@@ -2,27 +2,32 @@ import React from 'react';
 import {
 	View,
 	Text,
-	StyleSheet
+	StyleSheet,
+	TouchableHighlight,
+	PropTypes,
+	Button
 } from 'react-native';
 import Goal from '../components/Goal';
 
 
 export default class GoalsScreen extends React.Component {
-  static navigationOptions = {
-    title: 'Goals',
-  };
 
+	static navigationOptions = {
+		title: 'Goals',
+  };
   render() {
     return (
+			<View>
+				<Button title="Choose goals"
+					onPress={() => this.props.navigation.navigate('EditGoals')} />
+				<Goal />
 
-		<View style={styles.container}>
-			<Text style={styles.title}> Goals </Text>
-			<Goal />
-		</View>
-
-    );
+			</View>
+		);
   }
+
 }
+
 
 const styles = StyleSheet.create({
 	container: {
@@ -30,5 +35,8 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		fontSize: 24
+	},
+	something: {
+		marginTop: 100
 	}
 });

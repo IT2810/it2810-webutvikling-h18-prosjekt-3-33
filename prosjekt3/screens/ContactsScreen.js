@@ -1,39 +1,63 @@
 import React from 'react';
-import { Alert, Text, AppRegistry, Button, StyleSheet, View, SectionList, ScrollView} from 'react-native';
+import {Modal, Alert, Text,TouchableHighlight, AppRegistry, Button, StyleSheet, View, SectionList, ScrollView} from 'react-native';
 import { Icon } from 'expo';
 
-export default class ContactsScreen extends React.Component {
+import AddContactScreen from './AddContactScreen';
+
+export default class ContactScreen extends React.Component {
+
   static navigationOptions = {
     title: 'Contacts',
   };
 
-
-  _onPressButton() {
-    Alert.alert('You tapped the button!')    
+  state = {
+    modalVisible: false,
+    sections: [{
+      
+    }]
   };
+
+  setModalVisible(bool) {
+    this.setState({modalVisible: bool});
+  }
   
   _viewNameALert = (name) => { 
  
     Alert.alert(name)
  
-  }
-
-
+  };
 
   render() {
 
-    let A = ['Andreas', 'Anders', 'Anne']
-    let B = ['Beate','Brith','Boss']
-    let C = ['Charlie','Comrade','Coco']
     return (
       <ScrollView style={styles.container}>
-      <Icon.Ionicons name='ios-add' style={styles.addButton} onPress={this._onPressButton} color="blue"/>
+      <Icon.Ionicons name='ios-add' style={styles.addButton} onPress={() =>{
+        this.setModalVisible(!this.state.showModal)
+      }} color="blue"/>
+      <View>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{marginTop: 50}}>
+            <View>
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text style={styles.closeButton}>Close</Text>
+              </TouchableHighlight>
+              <AddContactScreen />
+            </View>
+
+          </View>
+        </Modal>
+      </View>
       <SectionList
-          sections={[
-            {title: 'A', data: A},
-            {title: 'B', data: B},
-            {title: 'C', data: C}
-          ]}
+          sections={sections}
           renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
           renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
@@ -43,6 +67,12 @@ export default class ContactsScreen extends React.Component {
     );
   }
 }
+
+let sections = [
+  {title: 'A', data: ['Andreas', 'Anders', 'Anne']},
+  {title: 'B', data: ['Beate','Brith','Boss']},
+  {title: 'C', data: ['Charlie','Comrade','Coco']}
+];
 
 
 const styles = StyleSheet.create({
@@ -70,7 +100,12 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 32,
     alignSelf: 'flex-end'
-
+  },
+  closeButton: {
+    margin: 10,
+    fontSize: 32,
+    alignSelf: 'flex-end',
+    color: "blue"
   }
 
 }); 
