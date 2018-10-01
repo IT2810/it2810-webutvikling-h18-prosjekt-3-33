@@ -13,21 +13,12 @@ export default class Goal extends React.Component {
           <Text style={styles.goalTitle}>Number of steps</Text>
         </View>
         <View style={styles.goalContainer}>
-          <Text style={styles.goalTitle}>Number of steps</Text>
+          <Text style={styles.goalTitle}>Hours of studing</Text>
         </View>
         <View style={styles.goalContainer}>
-          <Text style={styles.goalTitle}>Number of steps</Text>
-        </View>
-        <View style={styles.goalContainer}>
-          <Text style={styles.goalTitle}>Number of steps</Text>
-        </View>
-        <View style={styles.goalContainer}>
-          <Text style={styles.goalTitle}>Number of steps</Text>
-        </View>
-        <View style={styles.emptyContainer}>
+          <Text style={styles.goalTitle}>Number of movies watched</Text>
         </View>
       </ScrollView>
-
     );
   }
 }
