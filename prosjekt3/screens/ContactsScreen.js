@@ -1,6 +1,7 @@
 import React from 'react';
 import {Modal, Alert, Text,TouchableHighlight,StyleSheet, View, SectionList, ScrollView} from 'react-native';
 import { Icon } from 'expo';
+import * as Storage from '../components/Storage';
 
 import AddContactScreen from './AddContactScreen';
 
@@ -27,9 +28,20 @@ export default class ContactScreen extends React.Component {
     this.setState({modalVisible: bool});
   }
 
+  componentDidMount(){
+    /*let c = 
+            [ { "name": "Ulrik", "age": 22, "address": "Bakklandet"  },
+                { "name": "Sondre", "age": 24, "address": "Ila"        },
+                { "name": "Jørgen", "age": 95, "address": "Møhlenberg" }
+            ];
+
+    Storage.storeContacts(c);
+    */
+    Storage.getContacts().then(contacts => contacts.map(contact => this.addContact(contact['name'])));
+  }
+
 
   addContact = (name) => {
-    Alert.alert("Added contact: ", name); //alert user with the added name
     firstLetter = name[0].toUpperCase() //Uppercase the first letter in name
     sections = this.state.sections; // copy state
     let titles = []

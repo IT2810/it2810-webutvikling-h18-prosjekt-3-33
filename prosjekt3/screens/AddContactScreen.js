@@ -49,6 +49,7 @@ export default class AddContactScreen extends React.Component {
     }
       
       _submit = () => {
+        Alert.alert("Added contact: ", this.state.name);
         this.props.addContact(this.state.name);
 
       };
