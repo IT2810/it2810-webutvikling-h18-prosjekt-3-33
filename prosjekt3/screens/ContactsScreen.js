@@ -1,5 +1,5 @@
 import React from 'react';
-import {Modal, Alert, Text,TouchableHighlight, AppRegistry, Button, StyleSheet, View, SectionList, ScrollView} from 'react-native';
+import {Modal, Alert, Text,TouchableHighlight,StyleSheet, View, SectionList, ScrollView} from 'react-native';
 import { Icon } from 'expo';
 
 import AddContactScreen from './AddContactScreen';
@@ -51,7 +51,8 @@ export default class ContactScreen extends React.Component {
     sections.push(obj)//push to sections copy and update state
     this.setState({sections});
   }
-
+  sections.sort((a,b) => (a.title > b.title) ? 1 : ((b.title > a.title) ? -1 : 0)); //sort sections by Title
+  this.setState({sections}); // update state with sorted sections
   
 
     
