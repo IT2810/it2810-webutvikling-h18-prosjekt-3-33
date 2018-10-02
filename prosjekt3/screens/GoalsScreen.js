@@ -13,7 +13,7 @@ import Goal from '../components/Goal';
 export default class GoalsScreen extends React.Component {
 
 	static navigationOptions = {
-		title: 'Goals',
+		title: 'Daily Progress',
   };
   render() {
     return (

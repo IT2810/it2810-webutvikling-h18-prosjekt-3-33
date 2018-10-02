@@ -3,7 +3,8 @@ import {
   View, Text, StyleSheet, ScrollView
 
 } from 'react-native';
-import Colors from '../constants/Colors.js'
+import Colors from '../constants/Colors.js';
+import PedometerCounter from './PedometerCounter';
 
 export default class Goal extends React.Component {
   render() {
@@ -11,6 +12,7 @@ export default class Goal extends React.Component {
       <ScrollView style={styles.container}>
         <View style={styles.goalContainer}>
           <Text style={styles.goalTitle}>Number of steps</Text>
+          <PedometerCounter />
         </View>
         <View style={styles.goalContainer}>
           <Text style={styles.goalTitle}>Hours of studing</Text>
