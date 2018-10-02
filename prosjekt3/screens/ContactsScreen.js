@@ -16,7 +16,7 @@ export default class ContactScreen extends React.Component {
       sections: [
       {title: 'A', data: ['Andreas', 'Anders', 'Anne']},
       {title: 'B', data: ['Beate','Brith','Boss']},
-      {title: 'C', data: ['Charlie','Comrade','Coco']}
+      {title: 'C', data: ['Charlie','Comrade','Coco']},
     ]
 
     };
@@ -29,18 +29,31 @@ export default class ContactScreen extends React.Component {
 
 
   addContact = (name) => {
-    Alert.alert("Added contact: ", name);
-    firstLetter = name[0].toUpperCase()
-    sections = this.state.sections;
-
-    for(const [key,value] in Object.entries(sections)){
-      if(sections[key]['title'] == firstLetter){
-        console.log(sections[key])
-        sections[key]['data'].push(name)
-        console.log(sections[key]['data'])
-        this.setState({sections});
+    Alert.alert("Added contact: ", name); //alert user with the added name
+    firstLetter = name[0].toUpperCase() //Uppercase the first letter in name
+    sections = this.state.sections; // copy state
+    let titles = []
+  
+    for(const [key,value] in Object.entries(sections)){ //iterating through object entries
+      if(sections[key]['title'] == firstLetter){ // If first letter in name has a title in sections
+        sections[key]['data'].push(name) //add name value to sections copy
+        this.setState({sections}); // update state for rerendering, and updated contact 
         }
+      titles.push(sections[key]['title']) //append all titles to titles list
       }
+  
+  if(!titles.includes(firstLetter)){ //if titles doesnt contain firstLetter
+    //Create new dict object, with firstletter and name
+    let obj = {
+      "title": firstLetter,
+      "data": [name]
+    }
+    sections.push(obj)//push to sections copy and update state
+    this.setState({sections});
+  }
+
+  
+
     
   }
 
@@ -84,6 +97,8 @@ export default class ContactScreen extends React.Component {
     );
   }
 }
+
+
 
 
 const styles = StyleSheet.create({
