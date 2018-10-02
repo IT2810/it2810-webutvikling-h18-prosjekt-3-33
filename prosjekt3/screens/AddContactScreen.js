@@ -1,5 +1,5 @@
 import React from 'react';
-import { Alert, TextInput,StyleSheet, View} from 'react-native';
+import { Alert, TextInput,StyleSheet, View, Button} from 'react-native';
 import { Constants } from 'expo';
 
 
@@ -20,9 +20,7 @@ export default class AddContactScreen extends React.Component {
                 onChangeText={name => this.setState({name})}
                 ref={ref => {this._nameInput = ref}}
                 placeholder="Full Name"
-                autoFocus={true}
                 autoCapitalize="words"
-                autoCorrect={true}
                 keyboardType="default"
                 returnKeyType="next"
                 onSubmitEditing={this._next}
@@ -40,17 +38,18 @@ export default class AddContactScreen extends React.Component {
                 onChangeText={phone => this.setState({phone})}
                 keyboardType="default"
                 placeholder="Phone number"
-                onSubmitEditing={this._submit}
-                
             />
+
+            <Button title="Add contact" onPress={this._submit}></Button>
           </View>
+
+          
   
       );
     }
       
       _submit = () => {
-        Alert.alert(`Welcome, ${this.state.name}! Confirmation email has been sent to ${this.state.email}
-        and your phone number is ${this.state.phone}`);
+        this.props.addContact(this.state.name);
 
       };
   }

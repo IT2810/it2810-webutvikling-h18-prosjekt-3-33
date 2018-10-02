@@ -9,23 +9,40 @@ export default class ContactScreen extends React.Component {
   static navigationOptions = {
     title: 'Contacts',
   };
+  constructor(props) {
+    super(props);
+    this.state = {
+      modalVisible: false,
+      sections: [
+      {title: 'A', data: ['Andreas', 'Anders', 'Anne']},
+      {title: 'B', data: ['Beate','Brith','Boss']},
+      {title: 'C', data: ['Charlie','Comrade','Coco']}
+    ]
 
-  state = {
-    modalVisible: false,
-    sections: [{
-      
-    }]
-  };
+    };
+
+  }
 
   setModalVisible(bool) {
     this.setState({modalVisible: bool});
   }
-  
-  _viewNameALert = (name) => { 
- 
-    Alert.alert(name)
- 
-  };
+
+
+  addContact = (name) => {
+    Alert.alert("Added contact: ", name);
+    firstLetter = name[0].toUpperCase()
+    sections = this.state.sections;
+
+    for(const [key,value] in Object.entries(sections)){
+      if(sections[key]['title'] == firstLetter){
+        console.log(sections[key])
+        sections[key]['data'].push(name)
+        console.log(sections[key]['data'])
+        this.setState({sections});
+        }
+      }
+    
+  }
 
   render() {
 
@@ -50,14 +67,14 @@ export default class ContactScreen extends React.Component {
                 }}>
                 <Text style={styles.closeButton}>Close</Text>
               </TouchableHighlight>
-              <AddContactScreen />
+              <AddContactScreen addContact={this.addContact}/>
             </View>
 
           </View>
         </Modal>
       </View>
       <SectionList
-          sections={sections}
+          sections={this.state.sections}
           renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
           renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
@@ -67,12 +84,6 @@ export default class ContactScreen extends React.Component {
     );
   }
 }
-
-let sections = [
-  {title: 'A', data: ['Andreas', 'Anders', 'Anne']},
-  {title: 'B', data: ['Beate','Brith','Boss']},
-  {title: 'C', data: ['Charlie','Comrade','Coco']}
-];
 
 
 const styles = StyleSheet.create({
