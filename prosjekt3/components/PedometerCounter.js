@@ -69,7 +69,6 @@ export default class PedometerCounter extends React.Component {
           <Text>
             {totalProgress} out of {goal}
           </Text>
-
         </View>
         <View style={styles.progressBar}>
           <View style={progressBarStyle(totalProgress, goal)}>
@@ -81,9 +80,24 @@ export default class PedometerCounter extends React.Component {
   }
 }
 progressBarStyle = function(progress, goal){
+  let progressWidth = 0;
+  let backgroundColor = '#ccc';
+  let progressGoalRelation = progress/goal;
+  if(progressGoalRelation>=1){
+    progressWidth = 1;
+    backgroundColor = '#75CDA8';
+  }
+  if (progressGoalRelation < 1 && progressGoalRelation > 0.4){
+    progressWidth = progressGoalRelation;
+    backgroundColor = '#EDBF2C';
+  }
+  if(progressGoalRelation<=0.4){
+    progressWidth = progressGoalRelation;
+    backgroundColor = '#DB0200';
+  }
   return{
-    flex: progress/goal,
-    backgroundColor: '#ccc',
+    flex: progressWidth,
+    backgroundColor: backgroundColor,
   }
 }
 const styles = StyleSheet.create({
