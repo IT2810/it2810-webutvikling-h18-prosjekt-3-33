@@ -1,3 +1,6 @@
 node_modules/**/*
 .expo/**/*
 yarn.lock
+coverage/
+__tests__/__snapshots__/
+components/__tests__/__snapshots__/

@@ -1,45 +1,33 @@
 import React from 'react';
 import {
-    View,
-    Text,
     AsyncStorage,
 } from 'react-native';
 
 
-// class for getting and setting data in the AsyncStorage
-export default class Storage extends React.Component {
-
-    /* ex.:
-      key = 'user'
-      obj =  
-      {
-            name: 'Jørgen Stai',
-            email: 'test@gmail.com',
-            city: 'Stockholm',
-        }
-    */
-    saveData(key, obj) {
-        let obj = JSON.stringify(obj);
-        AsyncStorage.setItem(key, JSON.stringify(obj));
-    }
+/* Format of the storage:
 
 
-    /* ex.:
-
-      key   = 'user'
-      item  = 'name'
-
-    */
-    displayData = async (key, item) => {
-      try {
-        let obj = await AsyncStorage.getItem(key);
-        let parsed = JSON.parse(obj);
-        alert(parsed.item); // parsed.item returerer det man fetcher etter, f.eks. 'name' under nøkkelen 'user'
-      }
-
-      catch(error) {
-        alert(error);
-      }
-    }
-}
+{ CONTACTS:   [ { name: "Ulrik", age: 22, address: "Bakklandet"  },
+                { name: "Sondre", age: 24, address: "Ila"        },
+                { name: "Jørgen", age: 95, address: "Møhlenberg" }, 
+                ....
+              ],
   
+
+  TASKS:      [ { title: "Meeting", date: "22-12-1995" },
+                { title: "Dinner", date: "12-7-2995" },
+
+                ...
+
+              ]
+
+  GOALS:      [ {title: "Stop smoking", duration: 5, start: "22-12-1995"}
+
+              ] 
+}
+
+
+
+
+
+*/

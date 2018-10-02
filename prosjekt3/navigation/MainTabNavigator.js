@@ -10,9 +10,11 @@ import GoalsScreen from '../screens/GoalsScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import ContactsScreen from '../screens/ContactsScreen'
 import SettingsScreen from '../screens/SettingsScreen';
+import EditGoalScreen from '../screens/SubGoalScreens/EditGoalScreen';
 
 const GoalsStack = createStackNavigator({
   Goals: GoalsScreen,
+  EditGoals: EditGoalScreen
 });
 
 GoalsStack.navigationOptions = {
