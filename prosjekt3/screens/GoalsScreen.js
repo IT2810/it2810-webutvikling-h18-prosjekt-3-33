@@ -5,22 +5,27 @@ import {
 	StyleSheet,
 	TouchableHighlight,
 	PropTypes,
-	Button
+	Button,
+	TouchableOpacity
 } from 'react-native';
-import Goal from '../components/Goal';
+import StepGoal from '../components/StepGoal';
 
 
 export default class GoalsScreen extends React.Component {
-
+	state = {
+		stepGoal: 10000,
+	}
 	static navigationOptions = {
-		title: 'Daily Progress',
+		title: 'Daily Progresss',
   };
   render() {
     return (
 			<View>
 				<Button title="Choose goals"
 					onPress={() => this.props.navigation.navigate('EditGoals')} />
-				<Goal />
+				<TouchableOpacity onPress={() =>this.props.navigation.navigate('EditStep', {foo:'foo'})}>
+					<StepGoal stepGoal={this.state.stepGoal}/>
+				</TouchableOpacity>
 
 			</View>
 		);

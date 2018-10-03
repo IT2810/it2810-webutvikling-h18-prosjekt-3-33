@@ -81,7 +81,7 @@ export default class PedometerCounter extends React.Component {
 }
 progressBarStyle = function(progress, goal){
   let progressWidth = 0;
-  let backgroundColor = '#ccc';
+  let backgroundColor = '#000';
   let progressGoalRelation = progress/goal;
   if(progressGoalRelation>=1){
     progressWidth = 1;
