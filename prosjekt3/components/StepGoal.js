@@ -7,13 +7,23 @@ import Colors from '../constants/Colors.js';
 import PedometerCounter from './PedometerCounter';
 
 export default class StepGoal extends React.Component {
-
+  state = {
+    stepGoal: 0,
+  }
+  componentDidMount(){
+    this.setState({stepGoal: this.props.stepGoal})
+  }
+  componentDidUpdate(prevProps, prevState){
+    if(this.props.stepGoal != prevProps.stepGoal){
+      this.setState({stepGoal: this.props.stepGoal})
+    }
+  }
   render() {
     return(
       <ScrollView style={styles.container}>
         <View style={styles.goalContainer}>
-          <Text style={styles.goalTitle}>Number of steps </Text>
-          <PedometerCounter />
+          <Text style={styles.goalTitle}>Number of steps {this.props.stepGoal} </Text>
+          <PedometerCounter stepGoal={this.state.stepGoal} />
         </View>
       </ScrollView>
     );

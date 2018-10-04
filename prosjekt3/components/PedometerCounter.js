@@ -2,7 +2,7 @@ import React from 'react';
 import Expo from 'expo';
 import { Pedometer } from 'expo';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
-
+import * as Storage from './Storage';
 import Colors from '../constants/Colors';
 
 export default class PedometerCounter extends React.Component {
@@ -10,14 +10,21 @@ export default class PedometerCounter extends React.Component {
     isPedometerActive: "checking",
     pastStepCount: 0,
     currentStepCount: 0,
-    dailyGoal: 10000,
+    stepGoal: 10000,
   };
   componentDidMount() {
     this._subscribe();
+    this.setState({
+      stepGoal: this.props.stepGoal
+    })
   }
-
   componentWillUnmount() {
     this._unsubscribe();
+  }
+  componentDidUpdate(prevProps, prevState){
+    if(this.props.stepGoal != prevProps.stepGoal){
+      this.setState({stepGoal: this.props.stepGoal})
+    }
   }
 
   _subscribe = () => {
@@ -62,7 +69,7 @@ export default class PedometerCounter extends React.Component {
 
   render() {
     var totalProgress = this.state.pastStepCount + this.state.currentStepCount;
-    var goal = this.state.dailyGoal;
+    var goal = this.state.stepGoal;
     return (
       <View style={styles.container}>
         <View style={styles.textContainer}>

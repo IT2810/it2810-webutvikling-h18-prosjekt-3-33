@@ -14,6 +14,7 @@ export default class EditGoalScreen extends React.Component {
 		studyHoursToggle: false,
 		moviesToggle: false,
 	}
+
 	_onDailyStepsPress(){
 		const newState = !this.state.dailyStepsToggle;
 		this.setState({dailyStepsToggle: newState})

@@ -8,23 +8,35 @@ import {
 	TextInput
 } from 'react-native';
 import PedometerCounter from '../../components/PedometerCounter';
-import StepGoal from '../../components/StepGoal'
+import * as Storage from '../../components/Storage';
 
 
 export default class EditStepGoal extends React.Component {
+	state = {
+		stepGoal: '0',
+		foo: 'yo'
+	}
 	static navigationOptions = {
 		title: '',
-  };
-	state = {
-		stepGoal: '11000',
+  }
+	componentDidMount(){
+		this.setState({stepGoal: this.props.navigation.getParam('stepGoal', 0)})
 	}
-
+	componentDidUpdate(prevProps, prevState){
+		if(this.state.stepGoal != prevState.stepGoal){
+			const goals = Storage.getGoals();
+			goals['stepGoal'] = Number(this.state.stepGoal);
+			Storage.storeGoals(goals);
+			const { navigation } = this.props;
+			navigation.state.params.onLoad({ stepGoal: this.state.stepGoal });
+		}
+	}
 	changeStepGoal(newGoal){
 		this.setState({stepGoal: newGoal})
 	}
 	render() {
 		let currentGoal = this.state.stepGoal;
-		let supertest = this.props.navigation.getParam('foo': 'not foo');
+		let supertest = this.state.foo;
 		return(
 
 			<View style={styles.container}>
