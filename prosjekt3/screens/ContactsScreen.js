@@ -1,9 +1,10 @@
 import React from 'react';
-import {Modal, Alert, Text,TouchableHighlight,StyleSheet, View, SectionList, ScrollView} from 'react-native';
+import {Modal, Alert, Text,TouchableOpacity,TouchableHighlight,StyleSheet, View, SectionList, ScrollView} from 'react-native';
 import { Icon } from 'expo';
 import * as Storage from '../components/Storage';
 
-import AddContactScreen from './AddContactScreen';
+import AddContactScreen from './SubContactScreens/AddContactScreen';
+import Contact from './SubContactScreens/Contact';
 
 export default class ContactScreen extends React.Component {
 
@@ -38,6 +39,12 @@ export default class ContactScreen extends React.Component {
     Storage.storeContacts(c);
     */
     Storage.getContacts().then(contacts => contacts.map(contact => this.addContact(contact['name'])));
+  }
+
+  componentWillUnmount(){
+    
+    //save contacts to AsyncStorage
+
   }
 
 
@@ -101,7 +108,7 @@ export default class ContactScreen extends React.Component {
       </View>
       <SectionList
           sections={this.state.sections}
-          renderItem={({item}) => <Text style={styles.item}>{item}</Text>}
+          renderItem={({item}) => <Contact name={item}/>}
           renderSectionHeader={({section}) => <Text style={styles.sectionHeader}>{section.title}</Text>}
           keyExtractor={(item, index) => index}
         />
