@@ -5,25 +5,26 @@ import {
 } from 'react-native';
 import Colors from '../constants/Colors.js';
 import PedometerCounter from './PedometerCounter';
+import StudyCounter from './StudyCounter';
 
 export default class StepGoal extends React.Component {
   state = {
-    stepGoal: 0,
+    studyGoal: 0,
   }
   componentDidMount(){
-    this.setState({stepGoal: this.props.stepGoal})
+    this.setState({studyGoal: this.props.studyGoal})
   }
   componentDidUpdate(prevProps, prevState){
-    if(this.props.stepGoal != prevProps.stepGoal){
-      this.setState({stepGoal: this.props.stepGoal})
+    if(this.props.studyGoal != prevProps.studyGoal){
+      this.setState({studyGoal: this.props.studyGoal})
     }
   }
   render() {
     return(
       <ScrollView style={styles.container}>
         <View style={styles.goalContainer}>
-          <Text style={styles.goalTitle}>Number of steps last 24 hours </Text>
-          <PedometerCounter stepGoal={this.state.stepGoal} />
+          <Text style={styles.goalTitle}>Number of hours studied today </Text>
+          <StudyCounter studyGoal={this.props.studyGoal} />
         </View>
       </ScrollView>
     );

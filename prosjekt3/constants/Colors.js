@@ -11,5 +11,6 @@ export default {
   warningText: '#666804',
   noticeBackground: tintColor,
   noticeText: '#fff',
-  unfinishedGoalColor: '#D58181'
+  unfinishedGoalColor: '#D58181',
+  goalComponentOne: '#7ec4d6'
 };
