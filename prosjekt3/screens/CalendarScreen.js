@@ -23,7 +23,6 @@ export default class CalendarScreen extends React.Component {
   	render() {
 
 		return (
-			<ScrollView>
 			<Agenda
 			items ={
 				{'2018-10-01': [{text: 'Morning appointment'},{text: 'Midday appointment'},{text: 'Afternoon appointment'}],
@@ -34,12 +33,11 @@ export default class CalendarScreen extends React.Component {
 			
 			renderItem={(item,firstItemInDay) => {return (<View>
 														<Text style = {styles.item}>{firstItemInDay}</Text>
-														<Text style = {styles.item}>{item.key}</Text>
+														<Text style = {styles.item}>{item.text}</Text>
 														</View>)}}
 			renderEmptyDate={() => {return (<View><Text></Text></View>);}}
 			rowHasChanged={(r1, r2) => {return r1.text !== r2.text}}
 			/>
-			</ScrollView>
 	    )
   	}
 }
