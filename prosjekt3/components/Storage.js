@@ -34,7 +34,6 @@ _retrieveData = async (key) => {
 _clearStorage = async () => {
     try {
         AsyncStorage.clear();
-        alert("Storage cleared");
     } catch (error) {
         // Error clearing storage
         console.error(error)
