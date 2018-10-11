@@ -48,7 +48,7 @@ export default class GoalsScreen extends React.Component {
 			<View>
 				<Button title="Choose goals"
 					onPress={() => this.props.navigation.navigate('EditGoals')} />
-				<TouchableOpacity onPress={() =>this.props.navigation.navigate('EditStep', {stepGoal: this.state.stepGoal.toString(), onLoad: this.onLoad})}>
+				<TouchableOpacity onPress={() =>this.props.navigation.navigate('EditStep', {stepGoal: this.state.stepGoal, onLoad: this.onLoad})}>
 					<StepGoal stepGoal={this.state.stepGoal}/>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={() =>this.props.navigation.navigate('EditStudy', {studyGoal: this.state.studyGoal, onLoad: this.onLoad})}>

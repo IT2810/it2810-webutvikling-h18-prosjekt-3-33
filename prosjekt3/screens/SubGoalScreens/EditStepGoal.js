@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import PedometerCounter from '../../components/PedometerCounter';
 import * as Storage from '../../components/Storage';
+import Slider from 'react-native-slider';
 
 
 export default class EditStepGoal extends React.Component {
 	state = {
-		stepGoal: '0',
-		foo: 'yo'
+		stepGoal: 0,
 	}
 	static navigationOptions = {
 		title: '',
@@ -25,7 +25,7 @@ export default class EditStepGoal extends React.Component {
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.stepGoal != prevState.stepGoal){
 			const goals = Storage.getGoals();
-			goals['stepGoal'] = Number(this.state.stepGoal);
+			goals['stepGoal'] = this.state.stepGoal;
 			Storage.storeGoals(goals);
 			const { navigation } = this.props;
 			navigation.state.params.onLoad({ stepGoal: this.state.stepGoal });
@@ -36,17 +36,18 @@ export default class EditStepGoal extends React.Component {
 	}
 	render() {
 		let currentGoal = this.state.stepGoal;
-		let supertest = this.state.foo;
 		return(
 
 			<View style={styles.container}>
 				<View style={styles.smallContainer}>
-					<Text>Set a new goal for daily number of steps {supertest}</Text>
-					<TextInput
-	        style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-	        onChangeText={(text) => this.changeStepGoal(text)}
-	        value={this.state.stepGoal}
-		      />
+					<Text style={{padding: 10}}>Set a new goal for daily number of steps</Text>
+					<Slider
+          value={this.state.stepGoal}
+          onValueChange={(value) => this.changeStepGoal(value)}
+          minimumValue={0}
+          maximumValue={20000}
+          step={1000}/>
+				<Text style={{fontSize: 32}}>{this.state.stepGoal}</Text>
 				</View>
 			</View>
 		);
@@ -57,9 +58,15 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#bbb',
+		backgroundColor: '#e8fcb8',
 	},
 	smallContainer: {
 		width: 300,
+	},
+	inputStyle: {
+		height: 40,
+	 	borderColor: 'gray',
+		borderWidth: 1,
+		fontSize: 32,
 	}
 });

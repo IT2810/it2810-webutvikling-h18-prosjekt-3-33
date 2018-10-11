@@ -42,13 +42,13 @@ export default class EditStudyGoal extends React.Component {
 			<View style={styles.container}>
 				<View style={styles.smallContainer}>
 					<Text>Set a new goal for daily number of steps </Text>
-          <Text>{this.state.studyGoal}</Text>
           <Slider
           value={this.state.studyGoal}
           onValueChange={(value) => this.changeStudyGoal(value)}
           minimumValue={0}
           maximumValue={8}
           step={0.5}/>
+				<Text style={{fontSize: 32}}>{this.state.studyGoal}</Text>
 				</View>
 			</View>
 
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#bbb',
+		backgroundColor: '#e8fcb8',
 	},
 	smallContainer: {
 		width: '80%',
