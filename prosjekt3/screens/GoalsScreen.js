@@ -1,6 +1,7 @@
 import React from 'react';
 import {
 	View,
+	ScrollView,
 	Text,
 	StyleSheet,
 	TouchableHighlight,
@@ -9,7 +10,8 @@ import {
 	TouchableOpacity
 } from 'react-native';
 import StepGoal from '../components/StepGoal';
-import StudyGoal from '../components/StudyGoal'
+import StudyGoal from '../components/StudyGoal';
+import PushupsGoal from '../components/PushupsGoal';
 import * as Storage from '../components/Storage';
 
 
@@ -17,7 +19,8 @@ import * as Storage from '../components/Storage';
 export default class GoalsScreen extends React.Component {
 	state = {
 		stepGoal: 10,
-		studyGoal: 10
+		studyGoal: 10,
+		pushupsGoal: 10,
 	}
 	static navigationOptions = {
 		title: 'Daily Progresss',
@@ -38,6 +41,13 @@ export default class GoalsScreen extends React.Component {
 			Storage.storeGoals(goals);
 			this.setState({studyGoal: 5})
 		}
+		if(goals.hasOwnProperty('pushupsGoal')){
+			this.setState({ pushupsGoal: goals[pushupsGoal]})
+		}else{
+			goals['pushupsGoal'] = 5;
+			Storage.storeGoals(goals);
+			this.setState({pushupsGoal: 5})
+		}
 	}
 	onLoad = data => {
 		this.setState(data);
@@ -45,17 +55,20 @@ export default class GoalsScreen extends React.Component {
 
   render() {
     return (
-			<View>
-				<Button title="Choose goals"
-					onPress={() => this.props.navigation.navigate('EditGoals')} />
-				<TouchableOpacity onPress={() =>this.props.navigation.navigate('EditStep', {stepGoal: this.state.stepGoal, onLoad: this.onLoad})}>
+			<ScrollView style={styles.container}>
+				<Button
+					title="Choose goals"
+					onPress={() => this.props.navigation.navigate('EditGoals')}/>
+				<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStep', {stepGoal: this.state.stepGoal, onLoad: this.onLoad})}>
 					<StepGoal stepGoal={this.state.stepGoal}/>
 				</TouchableOpacity>
-				<TouchableOpacity onPress={() =>this.props.navigation.navigate('EditStudy', {studyGoal: this.state.studyGoal, onLoad: this.onLoad})}>
+				<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStudy', {studyGoal: this.state.studyGoal, onLoad: this.onLoad})}>
 					<StudyGoal studyGoal={this.state.studyGoal} />
 				</TouchableOpacity>
-
-			</View>
+				<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditPushups', {pushupsGoal: this.state.pushupsGoal, onLoad: this.onLoad})}>
+					<PushupsGoal pushupsGoal={this.state.pushupsGoal} />
+				</TouchableOpacity>
+			</ScrollView>
 		);
   }
 
@@ -64,12 +77,10 @@ export default class GoalsScreen extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		borderRadius: 3
+		flex: 1,
+		flexDirection: 'column',
 	},
-	title: {
-		fontSize: 24
+	goalView: {
+		marginBottom: -40,
 	},
-	something: {
-		marginTop: 100
-	}
 });

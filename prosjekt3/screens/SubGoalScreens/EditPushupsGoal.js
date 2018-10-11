@@ -7,48 +7,46 @@ import {
 	StyleSheet,
 	TextInput
 } from 'react-native';
-import PedometerCounter from '../../components/PedometerCounter';
 import * as Storage from '../../components/Storage';
 import Slider from 'react-native-slider';
 
 
-export default class EditStudyGoal extends React.Component {
+export default class EditPushupsGoal extends React.Component {
 	state = {
-		studyGoal: 0,
-		foo: 'yo'
+		pushupsGoal: 0,
 	}
 	static navigationOptions = {
 		title: '',
   }
 	componentDidMount(){
-		this.setState({studyGoal: this.props.navigation.getParam('studyGoal', 0)})
+		this.setState({pushupsGoal: this.props.navigation.getParam('pushupsGoal', 0)})
 	}
 	componentDidUpdate(prevProps, prevState){
-		if(this.state.studyGoal != prevState.studyGoal){
+		if(this.state.pushupsGoal != prevState.pushupsGoal){
 			const goals = Storage.getGoals();
-			goals['studyGoal'] = Number(this.state.studyGoal);
+			goals['pushupsGoal'] = Number(this.state.pushupsGoal);
 			Storage.storeGoals(goals);
 			const { navigation } = this.props;
-			navigation.state.params.onLoad({ studyGoal: this.state.studyGoal });
+			navigation.state.params.onLoad({ pushupsGoal: this.state.pushupsGoal });
 		}
 	}
-	changeStudyGoal(newGoal){
-		this.setState({studyGoal: newGoal})
+	changePushupsGoal(newGoal){
+		this.setState({pushupsGoal: newGoal})
 	}
 	render() {
-		let currentGoal = this.state.studyGoal;
+		let currentGoal = this.state.pushupsGoal;
 		return(
 
 			<View style={styles.container}>
 				<View style={styles.smallContainer}>
-					<Text>Set a new goal for daily hours of studying </Text>
+					<Text>Set a new goal for daily number of pushups </Text>
           <Slider
-          value={this.state.studyGoal}
-          onValueChange={(value) => this.changeStudyGoal(value)}
+          value={this.state.pushupsGoal}
+          onValueChange={(value) => this.changePushupsGoal(value)}
           minimumValue={0}
-          maximumValue={8}
+          maximumValue={30}
           step={1}/>
-				<Text style={{fontSize: 32}}>{this.state.studyGoal}</Text>
+				<Text style={{fontSize: 32}}>{this.state.pushupsGoal}</Text>
 				</View>
 			</View>
 

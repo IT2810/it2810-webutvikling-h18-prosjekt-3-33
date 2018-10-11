@@ -13,12 +13,14 @@ import SettingsScreen from '../screens/SettingsScreen';
 import EditGoalScreen from '../screens/SubGoalScreens/EditGoalScreen';
 import EditStepGoal from '../screens/SubGoalScreens/EditStepGoal';
 import EditStudyGoal from '../screens/SubGoalScreens/EditStudyGoal';
+import EditPushupsGoal from '../screens/SubGoalScreens/EditPushupsGoal';
 
 const GoalsStack = createStackNavigator({
   Goals: GoalsScreen,
   EditGoals: EditGoalScreen,
   EditStep: EditStepGoal,
-  EditStudy: EditStudyGoal
+  EditStudy: EditStudyGoal,
+  EditPushups: EditPushupsGoal
 });
 
 GoalsStack.navigationOptions = {
