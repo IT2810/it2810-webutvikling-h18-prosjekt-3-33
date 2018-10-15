@@ -13,15 +13,31 @@ export default class CalendarScreen extends React.Component {
         super(props);
         this.state = {
 			items: {},
+			currentDate: {
+				date: '',
+				startTime: '',
+				endTime: '',
+			}
         }
-      }
-
+			}
+			
+			onload = (data) => {
+				this.setState(data)
+			}
+	componendDidUpdate(prevProp,prevState){
+		console.log(this.state.currentDate)
+	}
 	static navigationOptions = ({navigation}) => {
 		return {
       headerTitle: 'Calendar',
       headerRight: (
         <Button
-          onPress={() => navigation.navigate('addItem')}
+          onPress={() => navigation.navigate('addItem', {
+						date: '',
+						startTime: '',
+						endTime: '',
+						onAddItem: navigation.state.params.onAddItem
+					})}
           title="Add"
         />
       ),
@@ -29,14 +45,23 @@ export default class CalendarScreen extends React.Component {
 
 	};
 
+	componentDidMount(){
+		this.props.navigation.setParams({
+			onAddItem: this.onAddItem
+		})
+	}
+
+	componentDidUpdate(prevProp,prevState){
+	}
 
   	render() {
+			const date = new Date()
+			selectedDate = date.toISOString().split('T')[0];
 
 		return (
 			<Agenda
         items={this.state.items}
-        loadItemsForMonth={this.loadItems.bind(this)}
-        selected={'2018-05-16'}
+        selected={selectedDate}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
         rowHasChanged={this.rowHasChanged.bind(this)}
@@ -57,9 +82,9 @@ export default class CalendarScreen extends React.Component {
 		);
 	  }
 		
-		loadItems(day) {
+		/*loadItems(day) {
 			setTimeout(() => {
-			  for (let i = -15; i < 15; i++) {
+			  for (let i = -5; i < 5; i++) {
 				const time = day.timestamp + i * 24 * 60 * 60 * 1000;
 				const strTime = this.timeToString(time);
 				if (!this.state.items[strTime]) {
@@ -72,8 +97,8 @@ export default class CalendarScreen extends React.Component {
 					});
 				  }
 				}
-			  }
-			  //console.log(this.state.items);
+				}
+			  console.log(this.state.items);
 			  const newItems = {};
 			  Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
 			  this.setState({
@@ -81,7 +106,9 @@ export default class CalendarScreen extends React.Component {
 			  });
 			}, 1000);
 			// console.log(`Load Items for ${day.year}-${day.month}`);
-		  }
+			}
+
+			*/
 		  renderItem(item) {
 			return (
 			  <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text></View>
@@ -101,7 +128,35 @@ export default class CalendarScreen extends React.Component {
 		  timeToString(time) {
 			const date = new Date(time);
 			return date.toISOString().split('T')[0];
-		  }
+			}
+			
+			onAddItem = (data) => {
+				const date = data.date
+				const time = data.startTime + " " + data.endTime
+				const height = Math.max(50, Math.floor(Math.random() * 150))
+				if(!this.state.items[date]){
+					this.state.items[date] = []
+					this.state.items[date].push({
+						name: time,
+						height: height
+					})
+				}
+
+				console.log(this.state.items);
+			  const newItems = {};
+			  Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
+			  this.setState({items: newItems })
+				
+
+				
+
+				/*data = {
+					date: '',
+					startTime: '',
+					endTime: '',
+				}
+				*/
+			}
 		}
 		
 		const styles = StyleSheet.create({

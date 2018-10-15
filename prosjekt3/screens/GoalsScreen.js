@@ -67,7 +67,7 @@ export default class GoalsScreen extends React.Component {
 				</TouchableOpacity>
 				<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditPushups', {pushupsGoal: this.state.pushupsGoal, onLoad: this.onLoad})}>
 					<PushupsGoal pushupsGoal={this.state.pushupsGoal} />
-				</TouchableOpacity>
+				</TouchableOpacity>	
 			</ScrollView>
 		);
   }

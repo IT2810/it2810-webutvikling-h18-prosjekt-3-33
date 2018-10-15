@@ -8,7 +8,7 @@ export default class AddCalendarItem extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            date:"2018-10-8",
+            date:"",
             startTime:'10:00',
             endTime: '12:00',
 
@@ -19,10 +19,12 @@ export default class AddCalendarItem extends React.Component {
   };
 
 
-  ComponentDidUpdate(){
+  componentDidMount(){ //When components mounts, setState date equal to todays actual date using javascript date Object
+      const date = new Date()
+      d = date.toISOString().split('T'); //Splitting object at T to an array 
+      this.setState({date: d[0]}) //Index 0 of array is todays date
 
   }
-
 
   render() {
   return(
@@ -44,7 +46,7 @@ export default class AddCalendarItem extends React.Component {
             // ... You can check the source to find the other keys.
           }}
       />
-      <Text>Start time</Text>
+      <Text>Select start time</Text>
       <DatePicker
           style={{width: 200}}
           date={this.state.startTime}
@@ -59,7 +61,7 @@ export default class AddCalendarItem extends React.Component {
               this.setState({starTime: time});
             }}
         />
-        <Text>End time</Text>
+        <Text>Select end time</Text>
         <DatePicker
           style={{width: 200}}
           date={this.state.endTime}
@@ -80,11 +82,20 @@ export default class AddCalendarItem extends React.Component {
             }
             }}
         />
-
+            {/*Button has an onPress function that sends us back to CalendarScreen with correct date item
+            such that it can be displayed in our <Agenda /> */}
         <Button title="Add" onPress={()=>{
             alert("Added")
-            this.props.navigation.navigate('Calendar')
-            
+            const date = this.state.date
+            const startTime = this.state.startTime
+            const endTime = this.state.endTime
+            const data = {
+                date: date,
+                startTime: startTime,
+                endTime: endTime
+            }
+            this.props.navigation.state.params.onAddItem(data)
+
         }}></Button>
 
         </View>
