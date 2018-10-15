@@ -4,11 +4,11 @@ import {View, Text, TouchableOpacity, StyleSheet, Button} from 'react-native';
 
 
 
-const Contact = ({name}) => 
+const Contact = ({item}) => 
         <View>
-        <TouchableOpacity onPress={() => alert(name)}>
+        <TouchableOpacity onPress={() => alert("Name: " + item.name  + "\n" + "Email: "  + item.email + "\n" + "Phone Number: " + item.number)}>
                 <Text style={styles.item}>
-                {name}
+                {item.name}
                 </Text>
         </TouchableOpacity>
         </View>;
