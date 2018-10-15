@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import * as Storage from '../components/Storage.js'
 import {Agenda} from 'react-native-calendars';
-import DayItem from './SubCalendarScreens/DayItem';
 
 export default class CalendarScreen extends React.Component {
 	constructor(props){
@@ -17,8 +16,17 @@ export default class CalendarScreen extends React.Component {
         }
       }
 
-	static navigationOptions = {
-	    title: 'Calendar',
+	static navigationOptions = ({navigation}) => {
+		return {
+      headerTitle: 'Calendar',
+      headerRight: (
+        <Button
+          onPress={() => navigation.navigate('addItem')}
+          title="Add"
+        />
+      ),
+    };
+
 	};
 
 
