@@ -10,7 +10,7 @@ export default class PedometerCounter extends React.Component {
     isPedometerActive: "checking",
     pastStepCount: 0,
     currentStepCount: 0,
-    stepGoal: 10000,
+    stepGoal: 0,
   };
   componentDidMount() {
     this._subscribe();

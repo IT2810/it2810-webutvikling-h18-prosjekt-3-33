@@ -6,26 +6,40 @@ import {
 	Button,
 	StyleSheet
 } from 'react-native';
-
+import * as Storage from '../../components/Storage';
+import ToggleSwitch from 'toggle-switch-react-native';
 
 export default class EditGoalScreen extends React.Component {
 	state = {
-		dailyStepsToggle: true,
-		studyHoursToggle: false,
-		moviesToggle: false,
+		goalChooser: {
+			stepGoal: true,
+			studyGoal: true,
+			pushupsGoal: true,
+		}
 	}
 
-	_onDailyStepsPress(){
-		const newState = !this.state.dailyStepsToggle;
-		this.setState({dailyStepsToggle: newState})
+	componentDidMount(){
+		this.setState({goalChooser: this.props.navigation.getParam('goalChooser', null)})
 	}
-	_onHoursStudyingPress(){
-		const newState = !this.state.studyHoursToggle;
-		this.setState({studyHoursToggle: newState})
+
+	componentDidUpdate(prevProps, prevState){
+		if(this.state.goalChooser != prevState.goalChooser){
+			const goals = Storage.getGoals();
+			goals.goalChooser = this.state.goalChooser;
+			Storage.storeGoals(goals);
+			const { navigation } = this.props;
+			navigation.state.params.onLoad({ goalChooser: this.state.goalChooser });
+		}
 	}
-	_onMoviesPress(){
-		const newState = !this.state.moviesToggle;
-		this.setState({moviesToggle: newState})
+
+	toggleSteps(){
+		this.setState({goalChooser: {stepGoal: true}})
+	}
+	toggleStudy(){
+		this.setState({goalChooser: {studyGoal: true}})
+	}
+	togglePushups(){
+		this.setState({goalChooser: {pushupsGoal: true}})
 	}
 	setStyle(background){
 		return{
@@ -40,47 +54,84 @@ export default class EditGoalScreen extends React.Component {
 	}
   render() {
 
-		const dailyStepsText = this.state.dailyStepsToggle
+		const dailyStepsText = this.state.goalChooser.stepGoal
 			? "Tracking daily steps: ON"
 			: "Tracking daily steps: OFF";
-		const hoursStudingText = this.state.studyHoursToggle
+		const hoursStudingText = this.state.goalChooser.studyGoal
 			? "Tracking hours of studying: ON"
 			: "Tracking hours of studying OFF";
-		const moviesText = this.state.moviesToggle
-			? "Tracking daily steps: ON"
-			: "Tracking daily steps: OFF";
-		const dailyStepsBackground = this.state.dailyStepsToggle
+		const pushupsText = this.state.goalChooser.pushupsGoal
+			? "Tracking number of pushups: ON"
+			: "Tracking number of pushups: OFF";
+		const dailyStepsBackground = this.state.goalChooser.stepGoal
 			? '#6be069'
 			: '#dd6378';
-		const hoursStudingBackground = this.state.studyHoursToggle
+		const hoursStudingBackground = this.state.goalChooser.studyGoal
 			? '#6be069'
 			: '#dd6378';
-		const moviesBackground = this.state.moviesToggle
+		const pushupsBackground = this.state.goalChooser.pushupsGoal
 			? '#6be069'
 			: '#dd6378';
     return(
 			<View style={styles.container}>
-				<TouchableOpacity
-					title="Number of steps"
-					onPress={() => this._onDailyStepsPress()}
-					style={this.setStyle(dailyStepsBackground)}
-					>
-						<Text style={styles.buttonText}>{dailyStepsText}</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					title="Number of steps"
-					onPress={() => this._onHoursStudyingPress()}
-					style={this.setStyle(hoursStudingBackground)}
-					>
-						<Text style={styles.buttonText}>{hoursStudingText}</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					title="Number of steps"
-					onPress={() => this._onMoviesPress()}
-					style={this.setStyle(moviesBackground)}
-					>
-						<Text style={styles.buttonText}>{moviesText}</Text>
-				</TouchableOpacity>
+				<View style={styles.toggleStyle}>
+					<ToggleSwitch
+				    isOn={this.state.goalChooser.stepGoal}
+				    onColor='green'
+				    offColor='red'
+				    label='Track number of steps'
+				    labelStyle={{color: 'black', fontWeight: '900'}}
+				    size='large'
+				    onToggle={ stepGoal => {
+							this.setState({
+								goalChooser: {
+									stepGoal: stepGoal,
+									studyGoal: this.state.goalChooser.studyGoal,
+									pushupsGoal: this.state.goalChooser.pushupsGoal
+								},
+							})
+						} }
+					/>;
+				</View>
+				<View style={styles.toggleStyle}>
+					<ToggleSwitch
+						isOn={this.state.goalChooser.studyGoal}
+						onColor='green'
+						offColor='red'
+						label='Track hours of studying'
+						labelStyle={{color: 'black', fontWeight: '900'}}
+						size='large'
+						onToggle={ studyGoal => {
+							this.setState({
+								goalChooser: {
+									stepGoal: this.state.goalChooser.stepGoal,
+									studyGoal: studyGoal,
+									pushupsGoal: this.state.goalChooser.pushupsGoal
+								},
+							})
+						} }
+					/>;
+				</View>
+				<View>
+					<ToggleSwitch
+						isOn={this.state.goalChooser.pushupsGoal}
+						onColor='green'
+						offColor='red'
+						label='Track number of pushups'
+						labelStyle={{color: 'black', fontWeight: '900'}}
+						size='large'
+						onToggle={ pushupsGoal => {
+							this.setState({
+								goalChooser: {
+									stepGoal: this.state.goalChooser.stepGoal,
+									studyGoal: this.state.goalChooser.studyGoal,
+									pushupsGoal: pushupsGoal
+								},
+							})
+						} }
+					/>;
+				</View>
+
 			</View>
     );
   }
@@ -95,4 +146,7 @@ const styles = StyleSheet.create({
 	buttonText: {
 		fontSize: 16,
 	},
+	toggleStyle: {
+		marginBottom: 50
+	}
 })

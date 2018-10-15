@@ -21,53 +21,89 @@ export default class GoalsScreen extends React.Component {
 		stepGoal: 10,
 		studyGoal: 10,
 		pushupsGoal: 10,
+		goalChooser: {
+			stepGoal: true,
+			studyGoal: false,
+			pushupsGoal: false
+		}
 	}
 	static navigationOptions = {
 		title: 'Daily Progresss',
   };
 	componentDidMount(){
-		const goals = Storage.getGoals();
-		if(goals.hasOwnProperty('stepGoal')){
-			this.setState({ stepGoal: goals[stepGoal]})
-		}else{
-			goals['stepGoal'] = 10000;
-			Storage.storeGoals(goals);
-			this.setState({stepGoal: 10000})
-		}
-		if(goals.hasOwnProperty('studyGoal')){
-			this.setState({ studyGoal: goals[studyGoal]})
-		}else{
-			goals['studyGoal'] = 5;
-			Storage.storeGoals(goals);
-			this.setState({studyGoal: 5})
-		}
-		if(goals.hasOwnProperty('pushupsGoal')){
-			this.setState({ pushupsGoal: goals[pushupsGoal]})
-		}else{
-			goals['pushupsGoal'] = 5;
-			Storage.storeGoals(goals);
-			this.setState({pushupsGoal: 5})
-		}
+		Storage.getGoals().then(goals =>{
+			console.log(goals.stepGoal)
+			if(goals.hasOwnProperty('stepGoal')){
+				this.setState({ stepGoal: goals.stepGoal})
+				console.log("Fetched goals " + goals.stepGoal)
+			}else{
+				goals.stepGoal = 10000;
+				Storage.storeGoals(goals);
+				console.log("Set new initial stepgoal " + goals.stepGoal)
+				this.setState({stepGoal: 10000})
+			}
+			if(goals.hasOwnProperty('studyGoal')){
+				this.setState({ studyGoal: goals.studyGoal})
+				console.log("Fetched studygoal " + goals.studyGoal)
+			}else{
+				goals.studyGoal = 5;
+				Storage.storeGoals(goals);
+				this.setState({studyGoal: 5})
+				console.log("Set new initial studyGoal " + goals.studyGoal)
+			}
+			if(goals.hasOwnProperty('pushupsGoal')){
+				this.setState({ pushupsGoal: goals.pushupsGoal})
+				console.log("Fetched pushupsGoal " + goals.pushupsGoal)
+			}else{
+				goals.pushupsGoal = 5;
+				Storage.storeGoals(goals);
+				this.setState({pushupsGoal: 5})
+				console.log("Set new initial pushupsGoal " + goals.pushupsGoal)
+			}
+			if(goals.hasOwnProperty('goalChooser')){
+				this.setState({goalChooser: goals.goalChooser})
+				console.log("Fetched goalChooser " + goals.goalChooser.stepGoal)
+			}else{
+				goals.goalChooser = {stepGoal: true, studyGoal: true, pushupsGoal: true}
+				Storage.storeGoals(goals);
+				this.setState({goalChooser: goals.goalChooser})
+				console.log("Set new initial goalChooser " + goals.goalChooser.stepGoal)
+			}
+		})
 	}
+
 	onLoad = data => {
+		this.setState(data);
+	}
+	onChooseLoad = data => {
 		this.setState(data);
 	}
 
   render() {
+		const stepComponent = (
+			<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStep', {stepGoal: this.state.stepGoal, onLoad: this.onLoad})}>
+				<StepGoal stepGoal={this.state.stepGoal}/>
+			</TouchableOpacity>
+		);
+		const studyComponent = (
+			<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStudy', {studyGoal: this.state.studyGoal, onLoad: this.onLoad})}>
+				<StudyGoal studyGoal={this.state.studyGoal} />
+			</TouchableOpacity>
+		);
+		const pushupsComponent = (
+			<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditPushups', {pushupsGoal: this.state.pushupsGoal, onLoad: this.onLoad})}>
+				<PushupsGoal pushupsGoal={this.state.pushupsGoal} />
+			</TouchableOpacity>
+		);
     return (
 			<ScrollView style={styles.container}>
 				<Button
 					title="Choose goals"
-					onPress={() => this.props.navigation.navigate('EditGoals')}/>
-				<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStep', {stepGoal: this.state.stepGoal, onLoad: this.onLoad})}>
-					<StepGoal stepGoal={this.state.stepGoal}/>
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStudy', {studyGoal: this.state.studyGoal, onLoad: this.onLoad})}>
-					<StudyGoal studyGoal={this.state.studyGoal} />
-				</TouchableOpacity>
-				<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditPushups', {pushupsGoal: this.state.pushupsGoal, onLoad: this.onLoad})}>
-					<PushupsGoal pushupsGoal={this.state.pushupsGoal} />
-				</TouchableOpacity>
+					onPress={() => this.props.navigation.navigate('EditGoals',
+						{goalChooser: this.state.goalChooser, onLoad: this.onChooseLoad})}/>
+				{this.state.goalChooser.stepGoal ? stepComponent : null}
+				{this.state.goalChooser.studyGoal ? studyComponent : null}
+				{this.state.goalChooser.pushupsGoal ? pushupsComponent : null}
 			</ScrollView>
 		);
   }
