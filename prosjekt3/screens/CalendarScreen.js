@@ -59,6 +59,7 @@ export default class CalendarScreen extends React.Component {
 			let dataList = []
 			Object.keys(this.state.items).forEach(key => dataList.push({'key': key, 'info': this.state.items[key]}))
 			Storage.storeTasks(dataList)
+			
 		}
 	}
 
