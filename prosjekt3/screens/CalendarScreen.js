@@ -13,20 +13,11 @@ export default class CalendarScreen extends React.Component {
         super(props);
         this.state = {
 			items: {},
-			currentDate: {
-				date: '',
-				startTime: '',
-				endTime: '',
-			}
         }
 			}
-			
-			onload = (data) => {
-				this.setState(data)
-			}
-	componendDidUpdate(prevProp,prevState){
-		console.log(this.state.currentDate)
-	}
+
+
+	
 	static navigationOptions = ({navigation}) => {
 		return {
       headerTitle: 'Calendar',
@@ -49,10 +40,28 @@ export default class CalendarScreen extends React.Component {
 		this.props.navigation.setParams({
 			onAddItem: this.onAddItem
 		})
+		Storage.getTasks().then(item => this.onMountAddTasks(item))
 	}
 
-	componentDidUpdate(prevProp,prevState){
+	onMountAddTasks(item){
+		let new_items = {}
+		Object.keys(item).forEach(key => {
+			let newKey = item[key].key
+			new_items[newKey] = item[key].info
+		})
+		
+		this.setState({items: new_items})
+
 	}
+
+	componentDidUpdate(prevProps, prevState){
+		if(prevState.items != this.state.items){
+			let dataList = []
+			Object.keys(this.state.items).forEach(key => dataList.push({'key': key, 'info': this.state.items[key]}))
+			Storage.storeTasks(dataList)
+		}
+	}
+
 
   	render() {
 			const date = new Date()
@@ -64,7 +73,10 @@ export default class CalendarScreen extends React.Component {
         selected={selectedDate}
         renderItem={this.renderItem.bind(this)}
         renderEmptyDate={this.renderEmptyDate.bind(this)}
-        rowHasChanged={this.rowHasChanged.bind(this)}
+				rowHasChanged={this.rowHasChanged.bind(this)}
+				pastScrollRange={50}
+				// Max amount of months allowed to scroll to the future. Default = 50
+				futureScrollRange={50}
         // markingType={'period'}
         // markedDates={{
         //    '2017-05-08': {textColor: '#666'},
@@ -81,37 +93,10 @@ export default class CalendarScreen extends React.Component {
       />
 		);
 	  }
-		
-		/*loadItems(day) {
-			setTimeout(() => {
-			  for (let i = -5; i < 5; i++) {
-				const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-				const strTime = this.timeToString(time);
-				if (!this.state.items[strTime]) {
-				  this.state.items[strTime] = [];
-				  const numItems = Math.floor(Math.random() * 5);
-				  for (let j = 0; j < numItems; j++) {
-					this.state.items[strTime].push({
-					  name: 'Item for ' + strTime,
-					  height: Math.max(50, Math.floor(Math.random() * 150))
-					});
-				  }
-				}
-				}
-			  console.log(this.state.items);
-			  const newItems = {};
-			  Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-			  this.setState({
-				items: newItems
-			  });
-			}, 1000);
-			// console.log(`Load Items for ${day.year}-${day.month}`);
-			}
-
-			*/
+	
 		  renderItem(item) {
 			return (
-			  <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text></View>
+			  <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text><Text>{item.text}</Text></View>
 			);
 		  }
 		
@@ -122,40 +107,30 @@ export default class CalendarScreen extends React.Component {
 		  }
 		
 		  rowHasChanged(r1, r2) {
-			return r1.name !== r2.name;
+			return r1.info !== r2.info;
 		  }
-		
-		  timeToString(time) {
-			const date = new Date(time);
-			return date.toISOString().split('T')[0];
-			}
 			
 			onAddItem = (data) => {
 				const date = data.date
-				const time = data.startTime + " " + data.endTime
+				const time = data.startTime + "-" + data.endTime
 				const height = Math.max(50, Math.floor(Math.random() * 150))
 				if(!this.state.items[date]){
 					this.state.items[date] = []
 					this.state.items[date].push({
 						name: time,
+						text: data.text,
+						height: height
+					})
+				}else{
+					this.state.items[date].push({
+						name:time,
+						text: data.text,
 						height: height
 					})
 				}
-
-				console.log(this.state.items);
 			  const newItems = {};
 			  Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
 			  this.setState({items: newItems })
-				
-
-				
-
-				/*data = {
-					date: '',
-					startTime: '',
-					endTime: '',
-				}
-				*/
 			}
 		}
 		

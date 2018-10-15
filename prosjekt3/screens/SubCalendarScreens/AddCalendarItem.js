@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet, Button} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Button, TextInput} from 'react-native';
 import DatePicker from 'react-native-datepicker'
 import * as Storage from '../../components/Storage';
 
@@ -11,6 +11,7 @@ export default class AddCalendarItem extends React.Component {
             date:"",
             startTime:'10:00',
             endTime: '12:00',
+            text: '',
 
         }
       }
@@ -31,7 +32,7 @@ export default class AddCalendarItem extends React.Component {
       <View style={styles.container}>
       <Text>Select day</Text>
       <DatePicker
-        tyle={{width: 200}}
+        style={{width: 200}}
         date={this.state.date}
         mode="date"
         placeholder="select date"
@@ -42,11 +43,9 @@ export default class AddCalendarItem extends React.Component {
         cancelBtnText="Cancel"
         showIcon={false}
         onDateChange={(date) => {this.setState({date: date})}}
-        customStyles={{
-            // ... You can check the source to find the other keys.
-          }}
       />
       <Text>Select start time</Text>
+
       <DatePicker
           style={{width: 200}}
           date={this.state.startTime}
@@ -58,7 +57,7 @@ export default class AddCalendarItem extends React.Component {
           Is24Hour={true}
           showIcon={false}
           onDateChange={(time) => {
-              this.setState({starTime: time});
+              this.setState({startTime: time});
             }}
         />
         <Text>Select end time</Text>
@@ -73,14 +72,18 @@ export default class AddCalendarItem extends React.Component {
           Is24Hour={true}
           showIcon={false}
           onDateChange={(time) => {
-            if(time < this.state.startTime){
-
-                alert("End time must be later than start")
-                
-            }else{
                 this.setState({endTime: time});
-            }
             }}
+        />
+
+        <TextInput
+        style={styles.input}
+        value={this.state.text}
+        multiline={true}
+        maxLength={140}
+        onChangeText={text => this.setState({text})}
+        keyboardType="default"
+        placeholder="information about your schedule"
         />
             {/*Button has an onPress function that sends us back to CalendarScreen with correct date item
             such that it can be displayed in our <Agenda /> */}
@@ -89,12 +92,15 @@ export default class AddCalendarItem extends React.Component {
             const date = this.state.date
             const startTime = this.state.startTime
             const endTime = this.state.endTime
+            const text = this.state.text
             const data = {
                 date: date,
                 startTime: startTime,
-                endTime: endTime
+                endTime: endTime,
+                text: text
             }
             this.props.navigation.state.params.onAddItem(data)
+            this.props.navigation.navigate('Calendar')
 
         }}></Button>
 
@@ -116,5 +122,18 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white'
-      }
+      },
+      input: {
+        margin: 20,
+        marginBottom: 0,
+        height: 34,
+        width: '80%',
+        height: 200,
+        paddingHorizontal: 10,
+        borderRadius: 4,
+        borderColor: '#ccc',
+        borderWidth: 1,
+        fontSize: 16,
+
+      },
   }); 
