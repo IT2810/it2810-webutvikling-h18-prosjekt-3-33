@@ -71,13 +71,15 @@ export {getGoals, getContacts, getTasks, storeContacts, storeGoals, storeTasks, 
 
 /*    Format of the storage:
 
-{ "CONTACTS": [ { "name": "Ulrik", "age": 22, "address": "Bakklandet"  },
+
+
+{ "CONTACTS": [ { "name": "Ulrik", "email": 22, "phonenumber": "Bakklandet"  },
                 { "name": "Sondre", "age": 24, "address": "Ila"        },
                 { "name": "Jørgen", "age": 95, "address": "Møhlenberg" } 
               ],
 
 
-  "TASKS":    [ { "title": "Meeting", "date": "22-12-1995" },
+  "TASKS":    [ { "date": "22-12-1995" , name: 10:00-12:00, text: jeg skal kjøpe pizza i dag},
                 { "title": "Dinner", "date": "12-7-2995" }
               ],
 

@@ -40,10 +40,10 @@ export default class ContactScreen extends React.Component {
     */
     Storage.getContacts().then(contacts => contacts.map(contact => this.addContact(contact['name'])));
   }
-
+  
   componentWillUnmount(){
-    
-    //save contacts to AsyncStorage
+  
+  //save contacts to AsyncStorage
 
   }
 

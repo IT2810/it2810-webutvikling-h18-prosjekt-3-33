@@ -14,6 +14,7 @@ import EditGoalScreen from '../screens/SubGoalScreens/EditGoalScreen';
 import EditStepGoal from '../screens/SubGoalScreens/EditStepGoal';
 import EditStudyGoal from '../screens/SubGoalScreens/EditStudyGoal';
 import EditPushupsGoal from '../screens/SubGoalScreens/EditPushupsGoal';
+import AddCalendarItem from '../screens/SubCalendarScreens/AddCalendarItem';
 
 const GoalsStack = createStackNavigator({
   Goals: GoalsScreen,
@@ -40,6 +41,7 @@ GoalsStack.navigationOptions = {
 
 const CalendarStack = createStackNavigator({
   Calendar: CalendarScreen,
+  addItem: AddCalendarItem,
 });
 
 CalendarStack.navigationOptions = {
