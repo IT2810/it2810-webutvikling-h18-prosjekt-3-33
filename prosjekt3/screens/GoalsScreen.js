@@ -25,7 +25,9 @@ export default class GoalsScreen extends React.Component {
 			stepGoal: true,
 			studyGoal: false,
 			pushupsGoal: false
-		}
+		},
+		currentDay: 0,
+		currentMonth: 0
 	}
 	static navigationOptions = {
 		title: 'Daily Progresss',
@@ -69,7 +71,27 @@ export default class GoalsScreen extends React.Component {
 				this.setState({goalChooser: goals.goalChooser})
 				console.log("Set new initial goalChooser " + goals.goalChooser.stepGoal)
 			}
-		})
+		});
+	}
+
+	componentDidUpdate(prevProps, prevState){
+		if(prevState != this.state){
+			Storage.getGoals().then(goals =>{
+			if(goals.stepGoal != this.state.stepGoal){
+				goals.stepGoal = this.state.stepGoal;
+			}
+			if(goals.studyGoal != this.state.studyGoal){
+				goals.studyGoal = this.state.studyGoal;
+			}
+			if(goals.pushupsGoal != this.state.pushupsGoal){
+				goals.pushupsGoal = this.state.pushupsGoal;
+			}
+			if(goals.goalChooser != this.state.goalChooser){
+				goals.goalChooser = this.state.goalChooser;
+			}
+			Storage.storeGoals(goals);
+			});
+		}
 	}
 
 	onLoad = data => {

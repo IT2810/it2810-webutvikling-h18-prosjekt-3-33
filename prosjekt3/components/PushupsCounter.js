@@ -8,16 +8,42 @@ export default class PushupsCounter extends React.Component {
   state = {
     pastPushupsCount: 0,
     currentPushupsCount: 0,
-    pushupsGoal: 5,
+    pushupsGoal: 5
   };
   componentDidMount() {
+    today = new Date();
     this.setState({
-      pushupsoal: this.props.pushupsGoal
+      pushupsGoal: this.props.pushupsGoal,
     })
+    Storage.getGoals().then(goals =>{
+      if(goals.hasOwnProperty('pushupsCount')){
+        if(goals.previousPushupsDate == today.getDate() && goals.previousPushupsMonth == today.getMonth()){
+          if(goals.pushupsCount != this.pastPushupsCount){
+            this.setState({pastPushupsCount: goals.pushupsCount})
+          }
+        }else{
+          this.setState({pastPushupsCount: 0})
+        }
+      }else{
+        goals.pushupsCount = 0;
+        goals.previousPushupsDate = today.getDate();
+        goals.previousPushupsMonth = today.getMonth();
+        Storage.storeGoals(goals);
+      }
+    });
   }
   componentDidUpdate(prevProps, prevState){
+    today = new Date();
     if(this.props.pushupsGoal != prevProps.pushupsGoal){
       this.setState({pushupsGoal: this.props.pushupsGoal})
+    }
+    if(this.state != prevState){
+      Storage.getGoals().then(goals =>{
+        goals.pushupsCount = this.state.pastPushupsCount + this.state.currentPushupsCount;
+        goals.previousPushupsDate = today.getDate();
+        goals.previousPushupsMonth = today.getMonth();
+        Storage.storeGoals(goals);
+      });
     }
   }
 

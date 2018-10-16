@@ -9,17 +9,44 @@ export default class PedometerCounter extends React.Component {
   state = {
     pastStudyCount: 0,
     currentStudyCount: 0,
-    studyGoal: 5,
+    studyGoal: 5
   };
   componentDidMount() {
+    today = new Date();
     this.setState({
       studyGoal: this.props.studyGoal
     })
+    Storage.getGoals().then(goals =>{
+      if(goals.hasOwnProperty('studyCount')){
+        if(goals.previousStudyDate == today.getDate() && goals.previousStudyMonth == today.getMonth()){
+          if(goals.studyCount != this.pastStudyCount){
+            this.setState({pastStudyCount: goals.studyCount})
+          }
+        }else{
+          this.setState({pastStudyCount: 0})
+        }
+      }else{
+        goals.studyCount = 0;
+        goals.previousStudyDate = today.getDate();
+        goals.previousStudyMonth = today.getMonth();
+        Storage.storeGoals(goals);
+      }
+    });
   }
   componentDidUpdate(prevProps, prevState){
+    today = new Date();
     if(this.props.studyGoal != prevProps.studyGoal){
       this.setState({studyGoal: this.props.studyGoal})
     }
+    if(this.state != prevState){
+      Storage.getGoals().then(goals =>{
+        goals.studyCount = this.state.pastStudyCount + this.state.currentStudyCount;
+        goals.previousStudyDate = today.getDate();
+        goals.previousStudyMonth = today.getMonth();
+        Storage.storeGoals(goals);
+      });
+    }
+
   }
 
 
