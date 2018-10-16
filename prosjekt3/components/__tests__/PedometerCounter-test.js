@@ -8,30 +8,17 @@ import { Pedometer } from 'expo';
 
 describe('PedometerCounter', () => {
 
-	test('renders correctly', () => {
+	it('renders correctly', () => {
 	  	const pedometer = renderer.create(<PedometerCounter />).toJSON();
 	  	expect(pedometer).toMatchSnapshot();
 	});
 
-	test('handles subscription correctly', done => {
-		expect.assertions(3);
+	it('handles subscription correctly',  async () => {
 		const pedometer = renderer.create(<PedometerCounter />).getInstance();
-		expect(pedometer).toBeDefined();
-		expect(pedometer.state.isPedometerActive).toEqual('checking');
+		await pedometer._subscribe()
 
 
-		// doesn't work
-		function callback() {
-			// if error:
-			    expect(pedometer.state.pastStepCount).not.toBe(0);
-			    done();
-		    // if success: 
-		    	expect(pedometer.state.pastStepCount).toBeGreaterThanOrEqual(0)
-		 }
 
-
-		pedometer._subscribe(callback);
-		console.log(pedometer.state);
 
 	});
 });

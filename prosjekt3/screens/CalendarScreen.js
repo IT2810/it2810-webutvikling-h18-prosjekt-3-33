@@ -24,9 +24,6 @@ export default class CalendarScreen extends React.Component {
       headerRight: (
         <Button
           onPress={() => navigation.navigate('addItem', {
-						date: '',
-						startTime: '',
-						endTime: '',
 						onAddItem: navigation.state.params.onAddItem
 					})}
           title="Create task" style={styles.addButton}
