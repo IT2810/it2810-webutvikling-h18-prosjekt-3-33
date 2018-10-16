@@ -2,7 +2,7 @@ import React from 'react';
 import {
 	View,
   	Text,
-  	Button, ScrollView,
+  	Button, ScrollView, TouchableOpacity,	
   	AsyncStorage, StyleSheet
 } from 'react-native';
 import * as Storage from '../components/Storage.js'
@@ -29,7 +29,7 @@ export default class CalendarScreen extends React.Component {
 						endTime: '',
 						onAddItem: navigation.state.params.onAddItem
 					})}
-          title="Add"
+          title="Create task" style={styles.addButton}
         />
       ),
     };
@@ -37,9 +37,7 @@ export default class CalendarScreen extends React.Component {
 	};
 
 	componentDidMount(){
-		this.props.navigation.setParams({
-			onAddItem: this.onAddItem
-		})
+		this.props.navigation.setParams({ onAddItem: this.onAddItem})
 		Storage.getTasks().then(item => this.onMountAddTasks(item))
 	}
 
@@ -71,35 +69,23 @@ export default class CalendarScreen extends React.Component {
 		return (
 			<Agenda
         items={this.state.items}
-        selected={selectedDate}
+				selected={selectedDate}
         renderItem={this.renderItem.bind(this)}
-        renderEmptyDate={this.renderEmptyDate.bind(this)}
+				renderEmptyDate={this.renderEmptyDate.bind(this)}
 				rowHasChanged={this.rowHasChanged.bind(this)}
-				pastScrollRange={50}
-				// Max amount of months allowed to scroll to the future. Default = 50
-				futureScrollRange={50}
-        // markingType={'period'}
-        // markedDates={{
-        //    '2017-05-08': {textColor: '#666'},
-        //    '2017-05-09': {textColor: '#666'},
-        //    '2017-05-14': {startingDay: true, endingDay: true, color: 'blue'},
-        //    '2017-05-21': {startingDay: true, color: 'blue'},
-        //    '2017-05-22': {endingDay: true, color: 'gray'},
-        //    '2017-05-24': {startingDay: true, color: 'gray'},
-        //    '2017-05-25': {color: 'gray'},
-        //    '2017-05-26': {endingDay: true, color: 'gray'}}}
-         // monthFormat={'yyyy'}
-         // theme={{calendarBackground: 'red', agendaKnobColor: 'green'}}
-        //renderDay={(day, item) => (<Text>{day ? day.day: 'item'}</Text>)}
       />
 		);
-	  }
-	
+		}
+		
 		  renderItem(item) {
 			return (
-			  <View style={[styles.item, {height: item.height}]}><Text>{item.name}</Text><Text>{item.text}</Text></View>
-			);
-		  }
+				<View style={[styles.item, {height: 100}]}>
+				<TouchableOpacity>
+				<Text>{item.name ? item.name : ''}</Text><Text>{item.text ? item.text : ''}</Text>
+				</TouchableOpacity>
+				</View>
+			)
+			}
 		
 		  renderEmptyDate() {
 			return (
@@ -131,7 +117,14 @@ export default class CalendarScreen extends React.Component {
 				}
 			  const newItems = {};
 			  Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
-			  this.setState({items: newItems })
+				this.setState({items: newItems })
+				
+				
+			}
+
+			timeToString(time) {
+				const date = new Date(time);
+				return date.toISOString().split('T')[0];
 			}
 		}
 		
@@ -148,6 +141,9 @@ export default class CalendarScreen extends React.Component {
 			height: 15,
 			flex:1,
 			paddingTop: 30
-		  }
+			},
+			addButton:{
+				fontSize: 80
+			}
 		});
 

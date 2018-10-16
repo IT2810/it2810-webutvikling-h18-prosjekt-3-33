@@ -9,12 +9,11 @@ import TabBarIcon from '../components/TabBarIcon';
 import GoalsScreen from '../screens/GoalsScreen';
 import CalendarScreen from '../screens/CalendarScreen';
 import ContactsScreen from '../screens/ContactsScreen'
-import SettingsScreen from '../screens/SettingsScreen';
 import EditGoalScreen from '../screens/SubGoalScreens/EditGoalScreen';
 import EditStepGoal from '../screens/SubGoalScreens/EditStepGoal';
 import EditStudyGoal from '../screens/SubGoalScreens/EditStudyGoal';
 import EditPushupsGoal from '../screens/SubGoalScreens/EditPushupsGoal';
-import AddCalendarItem from '../screens/SubCalendarScreens/AddCalendarItem';
+import AddCalendarItem from '../screens/SubCalendarScreens/AddCalendarItemScreen';
 
 const GoalsStack = createStackNavigator({
   Goals: GoalsScreen,
@@ -68,23 +67,8 @@ ContactsStack.navigationOptions = {
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
-  ),
-};
-
 export default createBottomTabNavigator({
   GoalsStack,
   CalendarStack,
   ContactsStack,
-  SettingsStack
 });

@@ -16,7 +16,7 @@ export default class AddCalendarItem extends React.Component {
         }
       }
   static navigationOptions = {
-    title: 'Add item',
+    title: 'Create task ',
   };
 
 
@@ -87,7 +87,7 @@ export default class AddCalendarItem extends React.Component {
         />
             {/*Button has an onPress function that sends us back to CalendarScreen with correct date item
             such that it can be displayed in our <Agenda /> */}
-        <Button title="Add" onPress={()=>{
+        <Button title="Add Task" onPress={()=>{
             alert("Added")
             const date = this.state.date
             const startTime = this.state.startTime
