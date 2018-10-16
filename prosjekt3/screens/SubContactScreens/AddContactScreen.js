@@ -17,7 +17,7 @@ export default class AddContactScreen extends React.Component {
             <TextInput
                 style={styles.input}
                 value={this.state.name}
-                onChangeText={name => this.setState({name})}
+                onChangeText={name => this.handleNameChange(name)}
                 ref={ref => {this._nameInput = ref}}
                 placeholder="Full Name"
                 autoCapitalize="words"
@@ -29,13 +29,13 @@ export default class AddContactScreen extends React.Component {
             <TextInput
                 style={styles.input}
                 value={this.state.email}
-                onChangeText={email => this.setState({email})}
+                onChangeText={email => this.handleEmailChange(email)}
                 placeholder="email@example.com"
                 />
             <TextInput
                 style={styles.input}
                 value={this.state.phone}
-                onChangeText={phone => this.setState({phone})}
+                onChangeText={phone => this.handleNumberChange(phone)}
                 keyboardType="default"
                 placeholder="Phone number"
             />
@@ -53,6 +53,16 @@ export default class AddContactScreen extends React.Component {
         this.props.addContact(this.state.name, this.state.email, this.state.phone);
 
       };
+
+      handleNameChange = (name) => {
+        this.setState({name})
+      }
+      handleEmailChange = (email) => {
+        this.setState({email})
+      }
+      handleNumberChange = (number) => {
+        this.setState({number})
+      }
   }
 
   const styles = StyleSheet.create({
