@@ -12,14 +12,14 @@ export default class PedometerCounter extends React.Component {
     studyGoal: 5
   };
   componentDidMount() {
-    today = new Date();
     this.setState({
-      studyGoal: this.props.studyGoal
+      studyGoal: this.props.studyGoal,
     })
     Storage.getGoals().then(goals =>{
       if(goals.hasOwnProperty('studyCount')){
         this.setState({pastStudyCount: goals.studyCount})
       }else{
+        this.setState({pastStudyCount: 0})
         goals.studyCount = 0;
         Storage.storeGoals(goals);
       }
@@ -48,7 +48,11 @@ export default class PedometerCounter extends React.Component {
           <View style={styles.minusButtonContainer}>
             <Button
               title="-"
-              onPress={() => this.setState({currentStudyCount: this.state.currentStudyCount-1})} />
+              onPress={() => this.setState({
+                currentStudyCount: (totalProgress-1 < 0)
+                  ? this.state.currentStudyCount
+                  : this.state.currentStudyCount-1
+              })} />
           </View>
           <Text>
             {totalProgress} out of {goal}

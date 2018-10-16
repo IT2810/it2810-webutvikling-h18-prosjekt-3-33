@@ -96,7 +96,7 @@ export default class GoalsScreen extends React.Component {
 		);
 		const studyComponent = (
 			<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStudy', {studyGoal: this.state.studyGoal, onLoad: this.onLoad})}>
-				<StudyGoal studyGoal={this.state.studyGoal} />
+				<StudyGoal studyGoal={this.state.studyGoal}/>
 			</TouchableOpacity>
 		);
 		const pushupsComponent = (

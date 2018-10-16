@@ -10,9 +10,12 @@ import StudyCounter from './StudyCounter';
 export default class StepGoal extends React.Component {
   state = {
     studyGoal: 0,
+    resetCounter: false
   }
   componentDidMount(){
-    this.setState({studyGoal: this.props.studyGoal})
+    this.setState({
+      studyGoal: this.props.studyGoal
+    })
   }
   componentDidUpdate(prevProps, prevState){
     if(this.props.studyGoal != prevProps.studyGoal){
@@ -24,7 +27,7 @@ export default class StepGoal extends React.Component {
       <ScrollView style={styles.container}>
         <View style={styles.goalContainer}>
           <Text style={styles.goalTitle}>Number of hours studied today </Text>
-          <StudyCounter studyGoal={this.props.studyGoal} />
+          <StudyCounter studyGoal={this.props.studyGoal}/>
         </View>
       </ScrollView>
     );

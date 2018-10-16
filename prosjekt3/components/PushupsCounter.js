@@ -45,7 +45,11 @@ export default class PushupsCounter extends React.Component {
           <View style={styles.minusButtonContainer}>
             <Button
               title="-"
-              onPress={() => this.setState({currentPushupsCount: this.state.currentPushupsCount-1})} />
+              onPress={() => this.setState({
+                currentPushupsCount: (totalProgress-1 < 0)
+                  ? this.state.currentPushupsCount
+                  : this.state.currentPushupsCount-1
+              })} />
           </View>
           <Text>
             {totalProgress} out of {goal}
