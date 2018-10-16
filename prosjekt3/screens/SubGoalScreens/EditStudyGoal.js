@@ -25,9 +25,10 @@ export default class EditStudyGoal extends React.Component {
 	}
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.studyGoal != prevState.studyGoal){
-			const goals = Storage.getGoals();
-			goals['studyGoal'] = Number(this.state.studyGoal);
-			Storage.storeGoals(goals);
+			Storage.getGoals().then(goals => {
+				goals['studyGoal'] = Number(this.state.studyGoal);
+				Storage.storeGoals(goals);
+			});
 			const { navigation } = this.props;
 			navigation.state.params.onLoad({ studyGoal: this.state.studyGoal });
 		}

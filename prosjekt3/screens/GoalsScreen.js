@@ -25,9 +25,7 @@ export default class GoalsScreen extends React.Component {
 			stepGoal: true,
 			studyGoal: false,
 			pushupsGoal: false
-		},
-		currentDay: 0,
-		currentMonth: 0
+		}
 	}
 	static navigationOptions = {
 		title: 'Daily Progresss',
@@ -40,7 +38,6 @@ export default class GoalsScreen extends React.Component {
 				console.log("Fetched goals " + goals.stepGoal)
 			}else{
 				goals.stepGoal = 10000;
-				Storage.storeGoals(goals);
 				console.log("Set new initial stepgoal " + goals.stepGoal)
 				this.setState({stepGoal: 10000})
 			}
@@ -49,7 +46,6 @@ export default class GoalsScreen extends React.Component {
 				console.log("Fetched studygoal " + goals.studyGoal)
 			}else{
 				goals.studyGoal = 5;
-				Storage.storeGoals(goals);
 				this.setState({studyGoal: 5})
 				console.log("Set new initial studyGoal " + goals.studyGoal)
 			}
@@ -58,7 +54,6 @@ export default class GoalsScreen extends React.Component {
 				console.log("Fetched pushupsGoal " + goals.pushupsGoal)
 			}else{
 				goals.pushupsGoal = 5;
-				Storage.storeGoals(goals);
 				this.setState({pushupsGoal: 5})
 				console.log("Set new initial pushupsGoal " + goals.pushupsGoal)
 			}
@@ -67,29 +62,21 @@ export default class GoalsScreen extends React.Component {
 				console.log("Fetched goalChooser " + goals.goalChooser.stepGoal)
 			}else{
 				goals.goalChooser = {stepGoal: true, studyGoal: true, pushupsGoal: true}
-				Storage.storeGoals(goals);
 				this.setState({goalChooser: goals.goalChooser})
 				console.log("Set new initial goalChooser " + goals.goalChooser.stepGoal)
 			}
+			Storage.storeGoals(goals);
 		});
 	}
 
 	componentDidUpdate(prevProps, prevState){
 		if(prevState != this.state){
 			Storage.getGoals().then(goals =>{
-			if(goals.stepGoal != this.state.stepGoal){
 				goals.stepGoal = this.state.stepGoal;
-			}
-			if(goals.studyGoal != this.state.studyGoal){
 				goals.studyGoal = this.state.studyGoal;
-			}
-			if(goals.pushupsGoal != this.state.pushupsGoal){
 				goals.pushupsGoal = this.state.pushupsGoal;
-			}
-			if(goals.goalChooser != this.state.goalChooser){
 				goals.goalChooser = this.state.goalChooser;
-			}
-			Storage.storeGoals(goals);
+				Storage.storeGoals(goals);
 			});
 		}
 	}

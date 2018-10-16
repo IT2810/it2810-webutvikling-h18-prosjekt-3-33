@@ -24,9 +24,10 @@ export default class EditStepGoal extends React.Component {
 	}
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.stepGoal != prevState.stepGoal){
-			const goals = Storage.getGoals();
-			goals['stepGoal'] = this.state.stepGoal;
-			Storage.storeGoals(goals);
+			Storage.getGoals().then(goals => {
+				goals.stepGoal = this.state.stepGoal;
+				Storage.storeGoals(goals);
+			});
 			const { navigation } = this.props;
 			navigation.state.params.onLoad({ stepGoal: this.state.stepGoal });
 		}

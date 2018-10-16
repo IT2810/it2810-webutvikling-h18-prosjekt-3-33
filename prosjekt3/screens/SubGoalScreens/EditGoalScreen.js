@@ -24,9 +24,10 @@ export default class EditGoalScreen extends React.Component {
 
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.goalChooser != prevState.goalChooser){
-			const goals = Storage.getGoals();
-			goals.goalChooser = this.state.goalChooser;
-			Storage.storeGoals(goals);
+			Storage.getGoals().then(goals => {
+				goals.goalChooser = this.state.goalChooser;
+				Storage.storeGoals(goals);
+			});
 			const { navigation } = this.props;
 			navigation.state.params.onLoad({ goalChooser: this.state.goalChooser });
 		}
@@ -53,25 +54,6 @@ export default class EditGoalScreen extends React.Component {
 		}
 	}
   render() {
-
-		const dailyStepsText = this.state.goalChooser.stepGoal
-			? "Tracking daily steps: ON"
-			: "Tracking daily steps: OFF";
-		const hoursStudingText = this.state.goalChooser.studyGoal
-			? "Tracking hours of studying: ON"
-			: "Tracking hours of studying OFF";
-		const pushupsText = this.state.goalChooser.pushupsGoal
-			? "Tracking number of pushups: ON"
-			: "Tracking number of pushups: OFF";
-		const dailyStepsBackground = this.state.goalChooser.stepGoal
-			? '#6be069'
-			: '#dd6378';
-		const hoursStudingBackground = this.state.goalChooser.studyGoal
-			? '#6be069'
-			: '#dd6378';
-		const pushupsBackground = this.state.goalChooser.pushupsGoal
-			? '#6be069'
-			: '#dd6378';
     return(
 			<View style={styles.container}>
 				<View style={styles.toggleStyle}>

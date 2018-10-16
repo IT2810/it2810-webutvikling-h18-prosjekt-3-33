@@ -23,9 +23,10 @@ export default class EditPushupsGoal extends React.Component {
 	}
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.pushupsGoal != prevState.pushupsGoal){
-			const goals = Storage.getGoals();
-			goals['pushupsGoal'] = Number(this.state.pushupsGoal);
-			Storage.storeGoals(goals);
+			Storage.getGoals().then(goals => {
+				goals['pushupsGoal'] = Number(this.state.pushupsGoal);
+				Storage.storeGoals(goals);
+			});
 			const { navigation } = this.props;
 			navigation.state.params.onLoad({ pushupsGoal: this.state.pushupsGoal });
 		}
