@@ -26,6 +26,20 @@ export default class AddCalendarItem extends React.Component {
       this.setState({date: d[0]}) //Index 0 of array is todays date
 
   }
+  handleDateChange = (date) => {
+      this.setState({date})
+  }
+
+  handleStartTimeChange = (startTime) => {
+      this.setState({startTime})
+  }
+
+  handleEndTimeChange = (endTime) => {
+      this.setState({endTime})
+  }
+  handleTextChange = (text) => {
+      this.setState({text})
+  }
 
   render() {
   return(
@@ -42,7 +56,7 @@ export default class AddCalendarItem extends React.Component {
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         showIcon={false}
-        onDateChange={(date) => {this.setState({date: date})}}
+        onDateChange={this.handleDateChange}
       />
       <Text>Select start time</Text>
 
@@ -56,9 +70,7 @@ export default class AddCalendarItem extends React.Component {
           minuteInterval={10}
           Is24Hour={true}
           showIcon={false}
-          onDateChange={(time) => {
-              this.setState({startTime: time});
-            }}
+          onDateChange={this.handleStartTimeChange}
         />
         <Text>Select end time</Text>
         <DatePicker
@@ -71,9 +83,7 @@ export default class AddCalendarItem extends React.Component {
           minuteInterval={10}
           Is24Hour={true}
           showIcon={false}
-          onDateChange={(time) => {
-                this.setState({endTime: time});
-            }}
+          onDateChange={this.handleEndTimeChange}
         />
 
         <TextInput
@@ -81,7 +91,7 @@ export default class AddCalendarItem extends React.Component {
         value={this.state.text}
         multiline={true}
         maxLength={140}
-        onChangeText={text => this.setState({text})}
+        onChangeText={this.handleTextChange}
         keyboardType="default"
         placeholder="information about your schedule"
         />
