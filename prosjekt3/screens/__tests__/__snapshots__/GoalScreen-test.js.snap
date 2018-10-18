@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoalsScreen Testing renders the GoalScreen 1`] = `null`;
+
+exports[`GoalsScreen Testing renders the PushupsGoal component 1`] = `null`;
+
+exports[`GoalsScreen Testing renders the StepGoal component 1`] = `null`;
+
+exports[`GoalsScreen Testing renders the StudyGoal component 1`] = `null`;

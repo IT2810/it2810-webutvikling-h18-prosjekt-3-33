@@ -2,59 +2,73 @@ import React from 'react';
 import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
+// Icons for the navbar
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/HomeScreen';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
 
-const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+// Main components
+import GoalsScreen from '../screens/GoalsScreen';
+import CalendarScreen from '../screens/CalendarScreen';
+import ContactsScreen from '../screens/ContactsScreen'
+import EditGoalScreen from '../screens/SubGoalScreens/EditGoalScreen';
+import EditStepGoal from '../screens/SubGoalScreens/EditStepGoal';
+import EditStudyGoal from '../screens/SubGoalScreens/EditStudyGoal';
+import EditPushupsGoal from '../screens/SubGoalScreens/EditPushupsGoal';
+import AddCalendarItem from '../screens/SubCalendarScreens/AddCalendarItemScreen';
+
+const GoalsStack = createStackNavigator({
+  Goals: GoalsScreen,
+  EditGoals: EditGoalScreen,
+  EditStep: EditStepGoal,
+  EditStudy: EditStudyGoal,
+  EditPushups: EditPushupsGoal
 });
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+GoalsStack.navigationOptions = {
+  tabBarLabel: 'Goals',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
       name={
         Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
+          ? `ios-pie${focused ? '' : '-outline'}`
+          : 'md-pie'
       }
     />
   ),
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
+
+const CalendarStack = createStackNavigator({
+  Calendar: CalendarScreen,
+  addItem: AddCalendarItem,
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
+CalendarStack.navigationOptions = {
+  tabBarLabel: 'Calendar',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
+      name={Platform.OS === 'ios' ? `ios-calendar${focused ? '' : '-outline'}` : 'md-calendar'}
     />
   ),
 };
 
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
+const ContactsStack = createStackNavigator({
+  Contacts: ContactsScreen,
 });
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
+ContactsStack.navigationOptions = {
+  tabBarLabel: 'Contacts',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
+      name={Platform.OS === 'ios' ? `ios-contact${focused ? '' : '-outline'}` : 'md-contact'}
     />
   ),
 };
 
 export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
+  GoalsStack,
+  CalendarStack,
+  ContactsStack,
 });
