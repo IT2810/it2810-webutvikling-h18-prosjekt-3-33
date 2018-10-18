@@ -7,7 +7,7 @@ import {
 	StyleSheet
 } from 'react-native';
 import * as Storage from '../../components/Storage';
-import ToggleSwitch from 'toggle-switch-react-native';
+import ToggleSwitch from './ToggleSwitch.js';
 
 export default class EditGoalScreen extends React.Component {
 	state = {
