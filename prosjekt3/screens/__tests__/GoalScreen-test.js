@@ -6,7 +6,7 @@ import * as Storage from '../../components/Storage';
 import StepGoal from '../../components/StepGoal.js';
 import StudyGoal from '../../components/StudyGoal.js';
 import PushupsGoal from '../../components/PushupsGoal.js';
-import EditGoalScreen from './SubGoalScreens/EditGoalScreen';
+import EditGoalScreen from '../SubGoalScreens/EditGoalScreen.js';
 
 describe("GoalsScreen Testing", () => {
 
