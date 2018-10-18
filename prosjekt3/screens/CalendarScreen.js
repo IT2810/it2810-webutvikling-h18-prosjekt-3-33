@@ -70,6 +70,7 @@ export default class CalendarScreen extends React.Component {
         renderItem={this.renderItem.bind(this)}
 				renderEmptyDate={this.renderEmptyDate.bind(this)}
 				rowHasChanged={this.rowHasChanged.bind(this)}
+				renderEmptyData={this.renderEmptyData.bind(this)}
       />
 		);
 		}
@@ -88,7 +89,14 @@ export default class CalendarScreen extends React.Component {
 			return (
 			  <View style={styles.emptyDate}><Text>This is empty date!</Text></View>
 			);
-		  }
+			}
+			
+			renderEmptyData() {
+				return (
+					<View style={styles.emptyData}><Text style={styles.text}>Nothing happens today</Text></View>
+				);
+
+			}
 		
 		  rowHasChanged(r1, r2) {
 			return r1.info !== r2.info;
@@ -141,6 +149,16 @@ export default class CalendarScreen extends React.Component {
 			},
 			addButton:{
 				fontSize: 80
+			},
+			emptyData: {
+				flex: 1,
+				justifyContent: 'center',
+				backgroundColor: 'white'
+
+			},
+			text: {
+				alignSelf: 'center',
+				fontSize: 20
 			}
 		});
 
