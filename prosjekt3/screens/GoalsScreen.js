@@ -32,38 +32,29 @@ export default class GoalsScreen extends React.Component {
   };
 	componentDidMount(){
 		Storage.getGoals().then(goals =>{
-			console.log(goals.stepGoal)
 			if(goals.hasOwnProperty('stepGoal')){
 				this.setState({ stepGoal: goals.stepGoal})
-				console.log("Fetched goals " + goals.stepGoal)
 			}else{
 				goals.stepGoal = 10000;
-				console.log("Set new initial stepgoal " + goals.stepGoal)
 				this.setState({stepGoal: 10000})
 			}
 			if(goals.hasOwnProperty('studyGoal')){
 				this.setState({ studyGoal: goals.studyGoal})
-				console.log("Fetched studygoal " + goals.studyGoal)
 			}else{
 				goals.studyGoal = 5;
 				this.setState({studyGoal: 5})
-				console.log("Set new initial studyGoal " + goals.studyGoal)
 			}
 			if(goals.hasOwnProperty('pushupsGoal')){
 				this.setState({ pushupsGoal: goals.pushupsGoal})
-				console.log("Fetched pushupsGoal " + goals.pushupsGoal)
 			}else{
 				goals.pushupsGoal = 5;
 				this.setState({pushupsGoal: 5})
-				console.log("Set new initial pushupsGoal " + goals.pushupsGoal)
 			}
 			if(goals.hasOwnProperty('goalChooser')){
 				this.setState({goalChooser: goals.goalChooser})
-				console.log("Fetched goalChooser " + goals.goalChooser.stepGoal)
 			}else{
 				goals.goalChooser = {stepGoal: true, studyGoal: true, pushupsGoal: true}
 				this.setState({goalChooser: goals.goalChooser})
-				console.log("Set new initial goalChooser " + goals.goalChooser.stepGoal)
 			}
 			Storage.storeGoals(goals);
 		});
