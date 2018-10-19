@@ -7,12 +7,14 @@ import StepGoal from '../../components/StepGoal.js';
 import StudyGoal from '../../components/StudyGoal.js';
 import PushupsGoal from '../../components/PushupsGoal.js';
 import EditGoalScreen from '../SubGoalScreens/EditGoalScreen.js';
+import EditStepGoal from '../SubGoalScreens/EditStepGoal';
+import EditStudyGoal from '../SubGoalScreens/EditStudyGoal';
 import ToggleSwitch from '../SubGoalScreens/ToggleSwitch.js';
 import Slider from 'react-native-slider'
 import EditPushupsGoal from '../SubGoalScreens/EditPushupsGoal'
 import '../SubGoalScreens/ToggleSwitch'
 
-jest.mock('../SubGoalScreens/ToggleSwitch')
+jest.mock('../SubGoalScreens/ToggleSwitch', () => 'ToggleSwitch')
 jest.mock('react-native-slider')
 
 describe("GoalsScreen Testing", () => {
@@ -66,6 +68,76 @@ describe("GoalsScreen Testing", () => {
       expect(GoalsScreenComponent.state.pushupsGoal).toEqual(pushupsGoalItem);
 
   });
+
+  it('Snapshot test for EditGoalScreen', () => {
+      const navigation = {
+          getParam: () => true,
+          state: {
+              params: {
+                  onLoad: jest.fn()
+              }
+          }
+      }
+    let GoalsScreenComponent = renderer.create(<EditGoalScreen navigation={navigation} />).toJSON();
+    expect(GoalsScreenComponent).toMatchSnapshot();
+});
+
+    it('Snapshot test for EditGoalScreen', () => {
+        const navigation = {
+            getParam: () => true,
+            state: {
+                params: {
+                    onLoad: jest.fn()
+                }
+            }
+        }
+        let toggleSteps = jest.fn();
+        let toggleStudy = jest.fn();
+        let togglePushups = jest.fn();
+        
+        let GoalsScreenComponent = renderer.create(<EditGoalScreen toggleSteps={toggleSteps} 
+            toggleStudy={toggleStudy} togglePushups={togglePushups} navigation={navigation} />).getInstance();
+        
+        GoalsScreenComponent.togglePushups();
+        GoalsScreenComponent.toggleSteps();
+        GoalsScreenComponent.toggleStudy();
+
+        expect(togglePushups).toHaveBeenCalled();
+        expect(toggleSteps).toHaveBeenCalled();
+        expect(toggleStudy).toHaveBeenCalled();
+
+    });
+
+    it('Snapshot test for EditStepGoal', () => {
+        const navigation = {
+            getParam: () => true,
+            state: {
+                params: {
+                    onLoad: jest.fn()
+                }
+            }
+        }
+      let GoalsScreenComponent = renderer.create(<EditStepGoal navigation={navigation} />).toJSON();
+      expect(GoalsScreenComponent).toMatchSnapshot();
+
+    })
+
+    it('Snapshot test for EditStudyGoal', () => {
+
+        const navigation = {
+            getParam: () => true,
+            state: {
+                params: {
+                    onLoad: jest.fn()
+                }
+            }
+        }
+      let GoalsScreenComponent = renderer.create(<EditStudyGoal navigation={navigation} />).toJSON();
+      expect(GoalsScreenComponent).toMatchSnapshot();
+
+    })
+
+
 
 
 });
