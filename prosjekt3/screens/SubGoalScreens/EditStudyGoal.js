@@ -11,7 +11,7 @@ import PedometerCounter from '../../components/PedometerCounter';
 import * as Storage from '../../components/Storage';
 import Slider from 'react-native-slider';
 
-
+//Component for editing goal for number of study hours per day
 export default class EditStudyGoal extends React.Component {
 	state = {
 		studyGoal: 0,
@@ -20,9 +20,12 @@ export default class EditStudyGoal extends React.Component {
 	static navigationOptions = {
 		title: '',
   }
+	//setting state from navigation params
 	componentDidMount(){
 		this.setState({studyGoal: this.props.navigation.getParam('studyGoal', 0)})
 	}
+
+	//storing changes to asyncstorage and updating data for navigation callback
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.studyGoal != prevState.studyGoal){
 			Storage.getGoals().then(goals => {
@@ -33,13 +36,14 @@ export default class EditStudyGoal extends React.Component {
 			navigation.state.params.onLoad({ studyGoal: this.state.studyGoal });
 		}
 	}
+	//set state on user interaction with slider
 	changeStudyGoal(newGoal){
 		this.setState({studyGoal: newGoal})
 	}
 	render() {
 		let currentGoal = this.state.studyGoal;
 		return(
-
+			//slider rendered with react-native-slider
 			<View style={styles.container}>
 				<View style={styles.smallContainer}>
 					<Text>Set a new goal for daily hours of studying </Text>

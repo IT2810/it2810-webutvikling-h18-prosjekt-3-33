@@ -10,7 +10,7 @@ import {
 import * as Storage from '../../components/Storage';
 import Slider from 'react-native-slider';
 
-
+//Component for changing you goal of number of pushups
 export default class EditPushupsGoal extends React.Component {
 	state = {
 		pushupsGoal: 0,
@@ -18,9 +18,11 @@ export default class EditPushupsGoal extends React.Component {
 	static navigationOptions = {
 		title: '',
   }
+	//Setting state from navigation params
 	componentDidMount(){
 		this.setState({pushupsGoal: this.props.navigation.getParam('pushupsGoal', 0)})
 	}
+	//Storing data to asyncstorage, and updating input for the navigation callback
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.pushupsGoal != prevState.pushupsGoal){
 			Storage.getGoals().then(goals => {
@@ -31,13 +33,14 @@ export default class EditPushupsGoal extends React.Component {
 			navigation.state.params.onLoad({ pushupsGoal: this.state.pushupsGoal });
 		}
 	}
+	//Setting new state on user request
 	changePushupsGoal(newGoal){
 		this.setState({pushupsGoal: newGoal})
 	}
 	render() {
 		let currentGoal = this.state.pushupsGoal;
 		return(
-
+			//Slider rendered using react-native-slider
 			<View style={styles.container}>
 				<View style={styles.smallContainer}>
 					<Text>Set a new goal for daily number of pushups </Text>

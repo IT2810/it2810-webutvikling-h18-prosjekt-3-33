@@ -7,16 +7,20 @@ import Colors from '../constants/Colors.js';
 import PedometerCounter from './PedometerCounter';
 import StudyCounter from './StudyCounter';
 
+//Component for managing study counter and study goals
 export default class StepGoal extends React.Component {
   state = {
     studyGoal: 0,
     resetCounter: false
   }
+
+  //Setting state from props (GoalsScreen)
   componentDidMount(){
     this.setState({
       studyGoal: this.props.studyGoal
     })
   }
+  //Setting state on changes
   componentDidUpdate(prevProps, prevState){
     if(this.props.studyGoal != prevProps.studyGoal){
       this.setState({studyGoal: this.props.studyGoal})

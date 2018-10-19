@@ -11,7 +11,7 @@ import PedometerCounter from '../../components/PedometerCounter';
 import * as Storage from '../../components/Storage';
 import Slider from 'react-native-slider';
 
-
+//Component for editing your goal for number of steps
 export default class EditStepGoal extends React.Component {
 	state = {
 		stepGoal: 0,
@@ -19,9 +19,11 @@ export default class EditStepGoal extends React.Component {
 	static navigationOptions = {
 		title: '',
   }
+	//Setting state from navigation params
 	componentDidMount(){
 		this.setState({stepGoal: this.props.navigation.getParam('stepGoal', 0)})
 	}
+	//Storing changes to asyncstorage and updating data for navigation callback
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.stepGoal != prevState.stepGoal){
 			Storage.getGoals().then(goals => {
@@ -32,13 +34,14 @@ export default class EditStepGoal extends React.Component {
 			navigation.state.params.onLoad({ stepGoal: this.state.stepGoal });
 		}
 	}
+	//change state on user edit, used in slider
 	changeStepGoal(newGoal){
 		this.setState({stepGoal: newGoal})
 	}
 	render() {
 		let currentGoal = this.state.stepGoal;
 		return(
-
+			//Slider created with react-native-slider
 			<View style={styles.container}>
 				<View style={styles.smallContainer}>
 					<Text style={{padding: 10}}>Set a new goal for daily number of steps</Text>

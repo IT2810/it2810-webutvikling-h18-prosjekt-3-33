@@ -1,0 +1,270 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`GoalsScreen Testing renders the GoalScreen 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flex": 1,
+      "flexDirection": "column",
+      "justifyContent": "center",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "marginBottom": 50,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "marginHorizontal": 10,
+            },
+            Object {
+              "color": "black",
+              "fontWeight": "900",
+            },
+          ]
+        }
+      >
+        Track number of steps
+      </Text>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "red",
+            "borderRadius": 20,
+            "justifyContent": "center",
+            "opacity": 1,
+            "padding": 20,
+            "width": 100,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <View
+          collapsable={undefined}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "borderRadius": 15,
+              "height": 30,
+              "justifyContent": "center",
+              "margin": 4,
+              "position": "absolute",
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+      </View>
+    </View>
+    ;
+  </View>
+  <View
+    style={
+      Object {
+        "marginBottom": 50,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "marginHorizontal": 10,
+            },
+            Object {
+              "color": "black",
+              "fontWeight": "900",
+            },
+          ]
+        }
+      >
+        Track hours of studying
+      </Text>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "red",
+            "borderRadius": 20,
+            "justifyContent": "center",
+            "opacity": 1,
+            "padding": 20,
+            "width": 100,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <View
+          collapsable={undefined}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "borderRadius": 15,
+              "height": 30,
+              "justifyContent": "center",
+              "margin": 4,
+              "position": "absolute",
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+      </View>
+    </View>
+    ;
+  </View>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Array [
+            Object {
+              "marginHorizontal": 10,
+            },
+            Object {
+              "color": "black",
+              "fontWeight": "900",
+            },
+          ]
+        }
+      >
+        Track number of pushups
+      </Text>
+      <View
+        accessibilityComponentType={undefined}
+        accessibilityLabel={undefined}
+        accessibilityTraits={undefined}
+        accessible={true}
+        collapsable={undefined}
+        hasTVPreferredFocus={undefined}
+        hitSlop={undefined}
+        isTVSelectable={true}
+        nativeID={undefined}
+        onLayout={undefined}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "backgroundColor": "red",
+            "borderRadius": 20,
+            "justifyContent": "center",
+            "opacity": 1,
+            "padding": 20,
+            "width": 100,
+          }
+        }
+        testID={undefined}
+        tvParallaxProperties={undefined}
+      >
+        <View
+          collapsable={undefined}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "white",
+              "borderRadius": 15,
+              "height": 30,
+              "justifyContent": "center",
+              "margin": 4,
+              "position": "absolute",
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+              ],
+              "width": 30,
+            }
+          }
+        />
+      </View>
+    </View>
+    ;
+  </View>
+</View>
+`;

@@ -6,18 +6,22 @@ import {
 import Colors from '../constants/Colors.js';
 import PushupsCounter from './PushupsCounter';
 
+//Component for managing pushups counter and pushups goal
 export default class PushupsGoal extends React.Component {
   state = {
     pushupsGoal: 0,
   }
+  // setting state from parent props (GoalScreen)
   componentDidMount(){
     this.setState({pushupsGoal: this.props.pushupsGoal})
   }
+
   componentDidUpdate(prevProps, prevState){
     if(this.props.studyGoal != prevProps.studyGoal){
       this.setState({pushupsGoal: this.props.pushupsGoal})
     }
   }
+  //Renders pushupscounter and passing goal as props
   render() {
     return(
       <ScrollView style={styles.container}>
