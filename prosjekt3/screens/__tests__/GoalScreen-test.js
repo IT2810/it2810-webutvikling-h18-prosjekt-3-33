@@ -10,9 +10,10 @@ import EditGoalScreen from '../SubGoalScreens/EditGoalScreen.js';
 import EditStepGoal from '../SubGoalScreens/EditStepGoal';
 import EditStudyGoal from '../SubGoalScreens/EditStudyGoal';
 import ToggleSwitch from '../SubGoalScreens/ToggleSwitch.js';
-import Slider from 'react-native-slider'
-import EditPushupsGoal from '../SubGoalScreens/EditPushupsGoal'
-import '../SubGoalScreens/ToggleSwitch'
+import Slider from 'react-native-slider';
+import EditPushupsGoal from '../SubGoalScreens/EditPushupsGoal';
+import '../SubGoalScreens/ToggleSwitch';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 jest.mock('../SubGoalScreens/ToggleSwitch', () => 'ToggleSwitch')
 jest.mock('react-native-slider')
@@ -91,20 +92,13 @@ describe("GoalsScreen Testing", () => {
                 }
             }
         }
-        let toggleSteps = jest.fn();
-        let toggleStudy = jest.fn();
         let togglePushups = jest.fn();
-        
-        let GoalsScreenComponent = renderer.create(<EditGoalScreen toggleSteps={toggleSteps} 
-            toggleStudy={toggleStudy} togglePushups={togglePushups} navigation={navigation} />).getInstance();
+
+        let GoalsScreenComponent = renderer.create(<EditGoalScreen togglePushups={togglePushups} navigation={navigation} />).getInstance();
         
         GoalsScreenComponent.togglePushups();
-        GoalsScreenComponent.toggleSteps();
-        GoalsScreenComponent.toggleStudy();
 
         expect(togglePushups).toHaveBeenCalled();
-        expect(toggleSteps).toHaveBeenCalled();
-        expect(toggleStudy).toHaveBeenCalled();
 
     });
 

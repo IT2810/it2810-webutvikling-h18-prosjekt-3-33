@@ -14,9 +14,9 @@ import StudyGoal from '../components/StudyGoal';
 import PushupsGoal from '../components/PushupsGoal';
 import * as Storage from '../components/Storage';
 
-
-
+//This is the main component for the goals page
 export default class GoalsScreen extends React.Component {
+// Setting initial state
 	state = {
 		stepGoal: 10,
 		studyGoal: 10,
@@ -27,9 +27,12 @@ export default class GoalsScreen extends React.Component {
 			pushupsGoal: false
 		}
 	}
+	// Title for navigation stack
 	static navigationOptions = {
 		title: 'Daily Progresss',
   };
+
+	//Check if localstorage already has data, else create default values
 	componentDidMount(){
 		Storage.getGoals().then(goals =>{
 			if(goals.hasOwnProperty('stepGoal')){
@@ -60,6 +63,7 @@ export default class GoalsScreen extends React.Component {
 		});
 	}
 
+	//store changes to asyncstorage
 	componentDidUpdate(prevProps, prevState){
 		if(prevState != this.state){
 			Storage.getGoals().then(goals =>{
@@ -72,6 +76,7 @@ export default class GoalsScreen extends React.Component {
 		}
 	}
 
+	//Callback functions for navigation params
 	onLoad = data => {
 		this.setState(data);
 	}
@@ -80,6 +85,8 @@ export default class GoalsScreen extends React.Component {
 	}
 
   render() {
+		//Creating views as const to enable conditional rendering based on goalChooser
+		//The navigate is passed data and callback function
 		const stepComponent = (
 			<TouchableOpacity style={styles.goalView} onPress={() =>this.props.navigation.navigate('EditStep', {stepGoal: this.state.stepGoal, onLoad: this.onLoad})}>
 				<StepGoal stepGoal={this.state.stepGoal}/>
@@ -101,6 +108,7 @@ export default class GoalsScreen extends React.Component {
 					title="Choose goals"
 					onPress={() => this.props.navigation.navigate('EditGoals',
 						{goalChooser: this.state.goalChooser, onLoad: this.onChooseLoad})}/>
+					//Conditional rendering of goal components
 				{this.state.goalChooser.stepGoal ? stepComponent : null}
 				{this.state.goalChooser.studyGoal ? studyComponent : null}
 				{this.state.goalChooser.pushupsGoal ? pushupsComponent : null}

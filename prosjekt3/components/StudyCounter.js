@@ -5,12 +5,15 @@ import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import * as Storage from './Storage';
 import Colors from '../constants/Colors';
 
+//Counter component for number of hours of studying, used by StudyGoal component
 export default class StudyCounter extends React.Component {
   state = {
     pastStudyCount: 0,
     currentStudyCount: 0,
     studyGoal: 5
   };
+  //Fetching data from props and checking asyncstorage for previous data, else
+  //initialize new data post
   componentDidMount() {
     this.fetchProps();
     Storage.getGoals().then(goals =>{
@@ -23,11 +26,13 @@ export default class StudyCounter extends React.Component {
       }
     });
   }
+  //Function used by componentDidMount for setting state from props
   fetchProps(){
     this.setState({
       studyGoal: this.props.studyGoal,
     })
   }
+  //Storing changes to asyncstorage and updating state
   componentDidUpdate(prevProps, prevState){
     if(this.props.studyGoal != prevProps.studyGoal){
       this.setState({studyGoal: this.props.studyGoal})
@@ -40,7 +45,7 @@ export default class StudyCounter extends React.Component {
     }
 
   }
-
+//Function for decrementing the counter
   decrementCounter(totalProgress){
     this.setState({
       currentStudyCount: (totalProgress-1 < 0)
@@ -48,11 +53,11 @@ export default class StudyCounter extends React.Component {
         : this.state.currentStudyCount-1
     })
   }
-
+//Function for incrementing the counter
   incrementCounter(totalProgress){
     this.setState({currentStudyCount: this.state.currentStudyCount+1})
   }
-
+//Function for calculating progressbar colors and width
   progressBarStyle(progress, goal){
     let progressWidth = 0;
     let backgroundColor = '#000';

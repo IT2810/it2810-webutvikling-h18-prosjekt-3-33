@@ -5,6 +5,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import * as Storage from './Storage';
 import Colors from '../constants/Colors';
 
+//Pedometer component used by StepGoal to get step data from core motion (iOS) or
+//Google Fit (Android)
 export default class PedometerCounter extends React.Component {
   state = {
     isPedometerActive: "checking",
@@ -12,21 +14,24 @@ export default class PedometerCounter extends React.Component {
     currentStepCount: 0,
     stepGoal: 0,
   };
+  //Subscribe to pedometer count and setting state from props (from StepGoal)
   componentDidMount() {
     this._subscribe();
     this.setState({
       stepGoal: this.props.stepGoal
     })
   }
+  //Unsubscribe from pedometer count on unmount
   componentWillUnmount() {
     this._unsubscribe();
   }
+  //State changes on new props from StepGoal
   componentDidUpdate(prevProps, prevState){
     if(this.props.stepGoal != prevProps.stepGoal){
       this.setState({stepGoal: this.props.stepGoal})
     }
   }
-
+//Subscribing to Core Motion and Google FIt
   _subscribe = () => {
     this._subscription = Pedometer.watchStepCount(result => {
       this.setState({
@@ -68,6 +73,7 @@ export default class PedometerCounter extends React.Component {
   };
 
   render() {
+    //Renders a progress bar based on progress / goal relationship
     var totalProgress = this.state.pastStepCount + this.state.currentStepCount;
     var goal = this.state.stepGoal;
     return (
@@ -86,6 +92,7 @@ export default class PedometerCounter extends React.Component {
     );
   }
 }
+//Function for calculating the progressbar colors and width
 progressBarStyle = function(progress, goal){
   let progressWidth = 0;
   let backgroundColor = '#000';

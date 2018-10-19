@@ -4,16 +4,19 @@ import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import * as Storage from './Storage';
 import Colors from '../constants/Colors';
 
+//Counter component for number of pushups used by PushupsGoal
 export default class PushupsCounter extends React.Component {
   state = {
     pastPushupsCount: 0,
     currentPushupsCount: 0,
     pushupsGoal: 5
   };
+  //Setting goal to state from props (PushupsGoal)
   componentDidMount() {
     this.setState({
       pushupsGoal: this.props.pushupsGoal,
     })
+    //Fetching existing count from asyncstorage, else create new data post
     Storage.getGoals().then(goals =>{
       if(goals.hasOwnProperty('pushupsCount')){
         this.setState({pastPushupsCount: goals.pushupsCount})
@@ -23,10 +26,12 @@ export default class PushupsCounter extends React.Component {
       }
     });
   }
+  //Setting new state for goal on parent props update (PushupsGoal)
   componentDidUpdate(prevProps, prevState){
     if(this.props.pushupsGoal != prevProps.pushupsGoal){
       this.setState({pushupsGoal: this.props.pushupsGoal})
     }
+    //Storing to new counter values to asyncstorage
     if(this.state != prevState){
       Storage.getGoals().then(goals =>{
         goals.pushupsCount = this.state.pastPushupsCount + this.state.currentPushupsCount;
@@ -34,7 +39,7 @@ export default class PushupsCounter extends React.Component {
       });
     }
   }
-
+//Function for decrementing the counter
   decrementCounter(totalProgress){
     this.setState({
       currentPushupsCount: (totalProgress-1 < 0)
@@ -42,11 +47,11 @@ export default class PushupsCounter extends React.Component {
         : this.state.currentPushupsCount-1
     })
   }
-
+//Function for incrementing the counter
   incrementCounter(){
     this.setState({currentPushupsCount: this.state.currentPushupsCount+1})
   }
-
+//Function for calculating progressbar colors and width
   progressBarStyle(progress, goal){
     let progressWidth = 0;
     let backgroundColor = '#000';
@@ -68,7 +73,6 @@ export default class PushupsCounter extends React.Component {
       backgroundColor: backgroundColor,
     }
   }
-
   render() {
     var totalProgress = this.state.pastPushupsCount + this.state.currentPushupsCount;
     var goal = this.state.pushupsGoal;

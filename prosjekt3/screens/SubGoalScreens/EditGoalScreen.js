@@ -9,7 +9,9 @@ import {
 import * as Storage from '../../components/Storage';
 import ToggleSwitch from './ToggleSwitch.js';
 
+//In this component, you can choose which goals to display on GoalScreen
 export default class EditGoalScreen extends React.Component {
+	//Initial state values; true=display component, false: not
 	state = {
 		goalChooser: {
 			stepGoal: true,
@@ -18,10 +20,12 @@ export default class EditGoalScreen extends React.Component {
 		}
 	}
 
+	//Get data from navigation props
 	componentDidMount(){
 		this.setState({goalChooser: this.props.navigation.getParam('goalChooser')})
 	}
 
+	//Store changes to asyncstorage and update navigation state (data for the callback function)
 	componentDidUpdate(prevProps, prevState){
 		if(this.state.goalChooser != prevState.goalChooser){
 			Storage.getGoals().then(goals => {
@@ -32,7 +36,7 @@ export default class EditGoalScreen extends React.Component {
 			navigation.state.params.onLoad({ goalChooser: this.state.goalChooser });
 		}
 	}
-
+	//Functions for toggeling goal components on and of
 	toggleSteps(){
 		this.setState({goalChooser: {stepGoal: true}})
 	}
@@ -55,6 +59,7 @@ export default class EditGoalScreen extends React.Component {
 	}
   render() {
     return(
+			//Buttons are created using the third party library "ToggleSwitch"
 			<View style={styles.container}>
 				<View style={styles.toggleStyle}>
 					<ToggleSwitch
