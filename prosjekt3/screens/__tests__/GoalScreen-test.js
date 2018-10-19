@@ -8,9 +8,10 @@ import StudyGoal from '../../components/StudyGoal.js';
 import PushupsGoal from '../../components/PushupsGoal.js';
 import EditGoalScreen from '../SubGoalScreens/EditGoalScreen.js';
 import ToggleSwitch from '../SubGoalScreens/ToggleSwitch.js';
-import Slider from 'react-native-slider'
-import EditPushupsGoal from '../SubGoalScreens/EditPushupsGoal'
-import '../SubGoalScreens/ToggleSwitch'
+import Slider from 'react-native-slider';
+import EditPushupsGoal from '../SubGoalScreens/EditPushupsGoal';
+import '../SubGoalScreens/ToggleSwitch';
+import ShallowRenderer from 'react-test-renderer/shallow';
 
 jest.mock('../SubGoalScreens/ToggleSwitch')
 jest.mock('react-native-slider')
