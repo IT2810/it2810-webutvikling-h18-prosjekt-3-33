@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`testing CalendarScreen Calling onAddItem and checks if Snapshot matches, CalendarScreen 1`] = `null`;
+
 exports[`testing CalendarScreen Renders AddCalenderItemScreen correctly 1`] = `
 <View
   style={
@@ -103,3 +105,5 @@ exports[`testing CalendarScreen Renders AddCalenderItemScreen correctly 1`] = `
   </View>
 </View>
 `;
+
+exports[`testing CalendarScreen Renders CalendarScreen correctly 1`] = `null`;
