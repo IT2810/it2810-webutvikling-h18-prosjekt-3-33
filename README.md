@@ -34,6 +34,93 @@ Agenda har et spesifikt format på hvordan items objektene skal se ut for å kun
 For å telle skritt i `GoalScreen` brukte vi [`Pedometer`](https://docs.expo.io/versions/latest/sdk/pedometer), som er en kryssplattform-wrapper for Core Motion (iOS) og Google Fit (Android).. Første gang man åpner appen vår blir man derfor spurt om tillatelse til å bruke de aktuelle tjenestene. 
 Merk at Pedometer ikke støtter alle mulige eldre devicer (vi har f.eks. dokumentert at det ikke fungerer på iPhone 5). Det er ikke så mye dokumentasjon om Pedometer, men her er hvertfall en [forklarende diskusjonstråd](https://forums.expo.io/t/pedometer-module-requirements/3766).
 
+## Tutorials
+### Skritt-telling med Pedometer
+Pedometer er en del av Expo sin SDK. For å anvende den, fulgte vi Expo sin [dokumentasjon](https://docs.expo.io/versions/latest/sdk/pedometer) i stor grad. Det er herfra vi henter funksjonene `_subscribe()` og `_unsubscribe()`. Kort fortalt henter `_subscribe()` ut antall skritt for dagens dato, og oppdaterer staten til Pedometer-komponenten hver gang det registreres et nytt skritt. `_unsubscribe()` gjør slik at Pedometer slutter å hente skritt fra Core Motion eller Google Fit, og kalles når `PedometerCounter` unmounter. Slik ser det mest essensielle i vår `PedometerCounter` ut: 
+
+```javascript
+import React from 'react';
+import Expo from 'expo';
+import { Pedometer } from 'expo';
+
+export default class PedometerCounter extends React.Component {
+  state = {
+    isPedometerActive: "checking",
+    pastStepCount: 0,
+    currentStepCount: 0,
+    stepGoal: 0, // defined goal to track daily progress
+  };
+  componentDidMount() {
+    this._subscribe();
+    this.setState({
+      stepGoal: this.props.stepGoal
+    })
+  }
+  componentWillUnmount() {
+    this._unsubscribe();
+  }
+  componentDidUpdate(prevProps, prevState){
+    if(this.props.stepGoal != prevProps.stepGoal){
+      this.setState({stepGoal: this.props.stepGoal})
+    }
+  }
+
+  render() {
+    var totalProgress = this.state.pastStepCount + this.state.currentStepCount;
+    var goal = this.state.stepGoal;
+    return (
+      <View style={styles.container}>
+        <View style={styles.textContainer}>
+          <Text>
+            {totalProgress} out of {goal}
+          </Text>
+        </View>
+        <View style={styles.progressBar}>
+          <View style={progressBarStyle(totalProgress, goal)}>
+          </View>
+        </View>
+
+      </View>
+    );
+  }
+}
+```
+
+For å anvende `PedometerCounter` til å holde orden på om målet for dagens antall skritt er nådd, importerer vi komponenten i `StepGoal`, som er ett av tre daglige mål det går an å tracke. `StepGoal` blir igjen brukt i `GoalsScreen`, som er hovedkomponenten i navigasjonsstacken `GoalsStack`. Slik ser `StepGoal` ut:
+
+```javascript
+import React from 'react';
+import PedometerCounter from './PedometerCounter';
+
+export default class StepGoal extends React.Component {
+  state = {
+    stepGoal: 0,
+  }
+  componentDidMount(){
+    this.setState({stepGoal: this.props.stepGoal})
+  }
+  componentDidUpdate(prevProps, prevState){
+    if(this.props.stepGoal != prevProps.stepGoal){
+      this.setState({stepGoal: this.props.stepGoal})
+    }
+  }
+  render() {
+    return(
+      <ScrollView style={styles.container}>
+        <View style={styles.goalContainer}>
+          <Text style={styles.goalTitle}>Number of steps last 24 hours </Text>
+          <PedometerCounter stepGoal={this.state.stepGoal} />
+        </View>
+      </ScrollView>
+    );
+  }
+}
+```
+
+### En til tutorial  - f.eks. Agenda?
+
+
+
 ## Testing
 Vi har skrevet enhetstester i test-rammeverket Jest. Vi har strukturert testene våre i tre forskjellige ```__tests__```-mapper (```/__tests__```, ```/screens/__tests__``` og ```/components/__tests__```.
 
