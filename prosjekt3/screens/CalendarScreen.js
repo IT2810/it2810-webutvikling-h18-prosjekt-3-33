@@ -127,7 +127,6 @@ export default class CalendarScreen extends React.Component {
 			  Object.keys(this.state.items).forEach(key => {newItems[key] = this.state.items[key];});
 				this.setState({items: newItems })
 				
-				
 			}
 		}
 		
