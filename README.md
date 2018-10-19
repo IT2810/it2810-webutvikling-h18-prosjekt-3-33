@@ -28,12 +28,11 @@ Her er en illustrasjon av navigasjons- og komponentstrukturen vår:
 ## Tredjeparter
 
 ### Agenda
-[Agenda](https://github.com/wix/react-native-calendars#agenda)
-Valget av kalender landet på Agenda fra `react-native-calendars`. Agendaen ser estetisk ut og lar oss konfigurere hvordan items blir rendret til skjerm.
+Valget av kalender landet på [Agenda](https://github.com/wix/react-native-calendars#agenda) fra `react-native-calendars`. Agendaen ser estetisk ut og lar oss konfigurere hvordan items blir rendret til skjerm.
 
 ### DatePicker
 [DatePicker](https://github.com/xgfe/react-native-datepicker)
-Agenda har et spesifikt format på hvordan items objektene skal se ut for å kunne rendre disse korrekt i selve komponenten. Her traff `react-native-datepicker` formatet vi trengte på dato (‘YYYY-MM-DD’) og ble et naturlig valg for å kunne lage nye items for å bli displayet i agendaen. 
+Agendaen trenger et spesifikt format for at items objektene skal bli rendret korrekt. Her traff [DatePicker](https://github.com/xgfe/react-native-datepicker) fra `react-native-datepicker` formatet vi trengte på dato (‘YYYY-MM-DD’) og ble et naturlig valg for å kunne lage nye items for agendaen.
 
 ### Pedometer
 For å telle skritt i `GoalScreen` brukte vi [`Pedometer`](https://docs.expo.io/versions/latest/sdk/pedometer), som er en kryssplattform-wrapper for Core Motion (iOS) og Google Fit (Android).. Første gang man åpner appen vår blir man derfor spurt om tillatelse til å bruke de aktuelle tjenestene. 
