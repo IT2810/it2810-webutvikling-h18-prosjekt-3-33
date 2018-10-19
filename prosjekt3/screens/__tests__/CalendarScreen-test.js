@@ -18,7 +18,22 @@ describe('testing CalendarScreen', () =>{
     })
 
     it('Handle TextInput events in AddCalenderItemScreen', () => {
-        const tree = renderer.create(<AddCalendarItemScreen />).getInstance();
+        const addCalendarItemScreen = renderer.create(<AddCalendarItemScreen />).getInstance();
+
+        let testState = {
+            date: '2018-10-05',
+            startTime:'20:00',
+            endTime: '23:00',
+            text: 'Test text',
+
+        }
+        addCalendarItemScreen.handleDateChange(testState.date)
+        addCalendarItemScreen.handleTextChange(testState.text)
+        addCalendarItemScreen.handleStartTimeChange(testState.startTime)
+        addCalendarItemScreen.handleEndTimeChange(testState.endTime)
+
+        expect(addCalendarItemScreen.state).toEqual(testState)
+
 
     })
 
