@@ -13,10 +13,19 @@ import ToggleSwitch from '../SubGoalScreens/ToggleSwitch.js';
 import Slider from 'react-native-slider';
 import EditPushupsGoal from '../SubGoalScreens/EditPushupsGoal';
 import '../SubGoalScreens/ToggleSwitch';
-import ShallowRenderer from 'react-test-renderer/shallow';
+
 
 jest.mock('../SubGoalScreens/ToggleSwitch', () => 'ToggleSwitch')
 jest.mock('react-native-slider')
+
+const navigation = {
+    getParam: () => true,
+    state: {
+        params: {
+            onLoad: jest.fn()
+        }
+    }
+}
 
 describe("GoalsScreen Testing", () => {
 
@@ -71,63 +80,67 @@ describe("GoalsScreen Testing", () => {
   });
 
   it('Snapshot test for EditGoalScreen', () => {
-      const navigation = {
-          getParam: () => true,
-          state: {
-              params: {
-                  onLoad: jest.fn()
-              }
-          }
-      }
-    let GoalsScreenComponent = renderer.create(<EditGoalScreen navigation={navigation} />).toJSON();
+    let GoalsScreenComponent = renderer.create(<EditGoalScreen  navigation={navigation} />).toJSON();
     expect(GoalsScreenComponent).toMatchSnapshot();
 });
 
-    it('Snapshot test for EditGoalScreen', () => {
-        const navigation = {
-            getParam: () => true,
-            state: {
-                params: {
-                    onLoad: jest.fn()
-                }
+    it('ToggleMethods state test for EditGoalScreen', () => {
+
+        const GoalsScreenComponent = renderer.create(<EditGoalScreen navigation={navigation} />).getInstance();
+
+        GoalsScreenComponent.togglePushups()
+        expect(GoalsScreenComponent.state).toEqual({
+            goalChooser: {
+                pushupsGoal: true,
             }
-        }
-        let togglePushups = jest.fn();
+        })
 
-        let GoalsScreenComponent = renderer.create(<EditGoalScreen togglePushups={togglePushups} navigation={navigation} />).getInstance();
+        GoalsScreenComponent.toggleStudy()
+        expect(GoalsScreenComponent.state).toEqual({
+            goalChooser: {
+                studyGoal: true,
+            }
+        })
+
+        GoalsScreenComponent.toggleSteps()
+        expect(GoalsScreenComponent.state).toEqual({
+            goalChooser: {
+                stepGoal: true,
+            }
+        })
+
         
-        GoalsScreenComponent.togglePushups();
 
-        expect(togglePushups).toHaveBeenCalled();
 
     });
 
     it('Snapshot test for EditStepGoal', () => {
-        const navigation = {
-            getParam: () => true,
-            state: {
-                params: {
-                    onLoad: jest.fn()
-                }
-            }
-        }
+
       let GoalsScreenComponent = renderer.create(<EditStepGoal navigation={navigation} />).toJSON();
       expect(GoalsScreenComponent).toMatchSnapshot();
 
     })
 
+    it('changeStepGoal method test for EditStepGoal', () => {
+
+      let GoalsScreenComponent = renderer.create(<EditStepGoal navigation={navigation} />).getInstance();
+      GoalsScreenComponent.changeStepGoal(5)
+      expect(GoalsScreenComponent.state.stepGoal).toEqual(5)
+
+    })
+
     it('Snapshot test for EditStudyGoal', () => {
 
-        const navigation = {
-            getParam: () => true,
-            state: {
-                params: {
-                    onLoad: jest.fn()
-                }
-            }
-        }
       let GoalsScreenComponent = renderer.create(<EditStudyGoal navigation={navigation} />).toJSON();
       expect(GoalsScreenComponent).toMatchSnapshot();
+
+    })
+
+    it('changeStepGoal method test for EditStudyGoal', () => {
+
+      let GoalsScreenComponent = renderer.create(<EditStudyGoal navigation={navigation} />).getInstance();
+      GoalsScreenComponent.changeStudyGoal(5)
+      expect(GoalsScreenComponent.state.studyGoal).toEqual(5)
 
     })
 

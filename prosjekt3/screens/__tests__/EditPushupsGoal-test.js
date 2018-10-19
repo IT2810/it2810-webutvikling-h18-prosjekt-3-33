@@ -18,6 +18,7 @@ describe("EditGoalScreen ", () => {
     const tree = renderer.create(<EditPushupsGoal navigation={navigation} />).toJSON();
     expect(tree).toMatchSnapshot();
   });
+  
   it('sets new data', () => {
     const navigation = {
       getParam: () => 5,
