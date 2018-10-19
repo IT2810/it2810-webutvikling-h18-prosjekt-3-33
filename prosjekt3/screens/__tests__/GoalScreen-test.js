@@ -114,6 +114,7 @@ describe("GoalsScreen Testing", () => {
 
     });
 
+    
     it('Snapshot test for EditStepGoal', () => {
 
       let GoalsScreenComponent = renderer.create(<EditStepGoal navigation={navigation} />).toJSON();
