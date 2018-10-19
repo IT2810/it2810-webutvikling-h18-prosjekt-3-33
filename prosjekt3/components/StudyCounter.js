@@ -5,7 +5,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Button } from 'react-native';
 import * as Storage from './Storage';
 import Colors from '../constants/Colors';
 
-export default class PedometerCounter extends React.Component {
+export default class StudyCounter extends React.Component {
   state = {
     pastStudyCount: 0,
     currentStudyCount: 0,

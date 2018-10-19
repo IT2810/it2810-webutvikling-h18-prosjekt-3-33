@@ -44,6 +44,7 @@ describe('StudyCounter', () => {
 		const prevGoal = studycounter.state.studyGoal;
 		expect(prevGoal).toEqual(studyGoal);
 	});
+
 	it('calculates progress colors', () => {
 		let goal= 8;
 		let progress = 8;
@@ -55,5 +56,23 @@ describe('StudyCounter', () => {
 		}
 		expect(result).toEqual(expectedResult);
 
+		goal= 8;
+		progress = 4;
+		expectedResult = {
+			flex: 0.5,
+    	backgroundColor: '#EDBF2C',
+		}
+		const secondResult = studycounter.progressBarStyle(progress,goal);
+		expect(secondResult).toEqual(expectedResult);
+
+		goal = 10;
+		progress = 0;
+		expectedResult = {
+			flex: 0,
+    	backgroundColor: '#DB0200',
+		}
+		const thirdResult = studycounter.progressBarStyle(progress,goal);
+		expect(thirdResult).toEqual(expectedResult);
 	});
+
 });

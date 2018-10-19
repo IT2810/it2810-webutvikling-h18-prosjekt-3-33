@@ -35,6 +35,39 @@ export default class PushupsCounter extends React.Component {
     }
   }
 
+  decrementCounter(totalProgress){
+    this.setState({
+      currentPushupsCount: (totalProgress-1 < 0)
+        ? this.state.currentPushupsCount
+        : this.state.currentPushupsCount-1
+    })
+  }
+
+  incrementCounter(){
+    this.setState({currentPushupsCount: this.state.currentPushupsCount+1})
+  }
+
+  progressBarStyle(progress, goal){
+    let progressWidth = 0;
+    let backgroundColor = '#000';
+    let progressGoalRelation = progress/goal;
+    if(progressGoalRelation>=1){
+      progressWidth = 1;
+      backgroundColor = '#75CDA8';
+    }
+    if (progressGoalRelation < 1 && progressGoalRelation > 0.4){
+      progressWidth = progressGoalRelation;
+      backgroundColor = '#EDBF2C';
+    }
+    if(progressGoalRelation<=0.4){
+      progressWidth = progressGoalRelation;
+      backgroundColor = '#DB0200';
+    }
+    return{
+      flex: progressWidth,
+      backgroundColor: backgroundColor,
+    }
+  }
 
   render() {
     var totalProgress = this.state.pastPushupsCount + this.state.currentPushupsCount;
@@ -45,11 +78,7 @@ export default class PushupsCounter extends React.Component {
           <View style={styles.minusButtonContainer}>
             <Button
               title="-"
-              onPress={() => this.setState({
-                currentPushupsCount: (totalProgress-1 < 0)
-                  ? this.state.currentPushupsCount
-                  : this.state.currentPushupsCount-1
-              })} />
+              onPress={() => this.decrementCounter(totalProgress)} />
           </View>
           <Text>
             {totalProgress} out of {goal}
@@ -57,12 +86,12 @@ export default class PushupsCounter extends React.Component {
           <View style={styles.buttonContainer}>
             <Button
               title="+"
-              onPress={() => this.setState({currentPushupsCount: this.state.currentPushupsCount+1})}
+              onPress={() => this.incrementCounter()}
               style={styles.plusButton}/>
           </View>
         </View>
         <View style={styles.progressBar}>
-          <View style={progressBarStyle(totalProgress, goal)}>
+          <View style={this.progressBarStyle(totalProgress, goal)}>
           </View>
         </View>
 
@@ -70,27 +99,7 @@ export default class PushupsCounter extends React.Component {
     );
   }
 }
-progressBarStyle = function(progress, goal){
-  let progressWidth = 0;
-  let backgroundColor = '#000';
-  let progressGoalRelation = progress/goal;
-  if(progressGoalRelation>=1){
-    progressWidth = 1;
-    backgroundColor = '#75CDA8';
-  }
-  if (progressGoalRelation < 1 && progressGoalRelation > 0.4){
-    progressWidth = progressGoalRelation;
-    backgroundColor = '#EDBF2C';
-  }
-  if(progressGoalRelation<=0.4){
-    progressWidth = progressGoalRelation;
-    backgroundColor = '#DB0200';
-  }
-  return{
-    flex: progressWidth,
-    backgroundColor: backgroundColor,
-  }
-}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
