@@ -173,6 +173,11 @@ Naviger til `/prosjekt3`i prosjektmappen og kjør `jest` (eventuelt `jest --cove
 
 Ved innlevering av prosjeketet så outputet fra `jest --verbose` slik ut:
 
+
+| ![jest-verbose](/prosjekt3/report/jest-verbose1.png) | ![jest-verbose](/prosjekt3/report/jest-verbose2.png) |
+![jest-coverage](/prosjekt3/report/jest-coverage.png)
+
+
 < SETT INN OUTPUT FRA `jest --verbose` NÅR VI ER FERDIGE >
 
 ## Problemer og refleksjon
