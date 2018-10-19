@@ -8,9 +8,12 @@ import Contact from './SubContactScreens/Contact';
 
 export default class ContactScreen extends React.Component {
 
+   //set title in navigationStack
   static navigationOptions = {
     title: 'Contacts',
   };
+
+  //constructor with state that contains sections for sectionList and modalvisible bool
   constructor(props) {
     super(props);
     this.state = {
@@ -21,11 +24,12 @@ export default class ContactScreen extends React.Component {
     };
 
   }
-
+  //method to set modal visible or unvisible, parameter that gets passed is a boolean
   setModalVisible = (bool) => {
     this.setState({modalVisible: bool});
   }
 
+  //On component Mount, get all saved contacts from AsyncStorage and add to state.SectionList
   componentDidMount(){
    Storage.getContacts().then(contacts => contacts.map(contact => {
        contact['data'].map(obj => this.addContact(obj.name,obj.email,obj.number))
