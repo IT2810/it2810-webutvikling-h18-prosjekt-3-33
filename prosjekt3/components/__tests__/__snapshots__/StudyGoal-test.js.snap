@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`PushupsCounter renders correctly 1`] = `
+exports[`StudyCounter renders correctly 1`] = `
 <View
   style={
     Object {
@@ -186,3 +186,5 @@ exports[`PushupsCounter renders correctly 1`] = `
   </View>
 </View>
 `;
+
+exports[`StudyGoal renders correctly 1`] = `null`;

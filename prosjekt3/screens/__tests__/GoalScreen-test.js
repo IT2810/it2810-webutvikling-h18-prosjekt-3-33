@@ -7,6 +7,9 @@ import StepGoal from '../../components/StepGoal.js';
 import StudyGoal from '../../components/StudyGoal.js';
 import PushupsGoal from '../../components/PushupsGoal.js';
 import EditGoalScreen from '../SubGoalScreens/EditGoalScreen.js';
+import ShallowRenderer from 'react-test-renderer/shallow';
+import {shallow} from 'enzyme';
+import ToggleSwitch from '../SubGoalScreens/ToggleSwitch.js';
 
 describe("GoalsScreen Testing", () => {
 

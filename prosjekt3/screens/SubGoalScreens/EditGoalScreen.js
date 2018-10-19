@@ -19,7 +19,7 @@ export default class EditGoalScreen extends React.Component {
 	}
 
 	componentDidMount(){
-		this.setState({goalChooser: this.props.navigation.getParam('goalChooser', null)})
+		this.setState({goalChooser: this.props.navigation.getParam('goalChooser')})
 	}
 
 	componentDidUpdate(prevProps, prevState){
