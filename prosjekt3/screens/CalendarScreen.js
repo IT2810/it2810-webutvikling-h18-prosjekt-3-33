@@ -105,19 +105,16 @@ export default class CalendarScreen extends React.Component {
 			onAddItem = (data) => {
 				const date = data.date
 				const time = data.startTime + "-" + data.endTime
-				const height = Math.max(50, Math.floor(Math.random() * 150))
 				if(!this.state.items[date]){
 					this.state.items[date] = []
 					this.state.items[date].push({
 						name: time,
 						text: data.text,
-						height: height
 					})
 				}else{
 					this.state.items[date].push({
 						name:time,
 						text: data.text,
-						height: height
 					})
 				}
 			  const newItems = {};
@@ -125,11 +122,6 @@ export default class CalendarScreen extends React.Component {
 				this.setState({items: newItems })
 				
 				
-			}
-
-			timeToString(time) {
-				const date = new Date(time);
-				return date.toISOString().split('T')[0];
 			}
 		}
 		

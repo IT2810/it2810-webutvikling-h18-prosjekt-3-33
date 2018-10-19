@@ -75,4 +75,21 @@ describe("AddContact screen testing", () => {
         expect(addContactComponent.state.number).toEqual('41403910')
     })
 
+
+    it('AddContact method should be called' , async () => {
+        const addContact = jest.fn();
+
+        let testState = {
+            name: 'Jørgen',
+            email: 'Jorgensta@gmail.com',
+            number: 41403910
+        }
+        
+        const addContactScreen = renderer.create(<AddContactScreen state={testState} addContact={addContact} />).getInstance();
+
+        addContactScreen._submit()
+
+        expect(addContact).toHaveBeenCalled();
+    })
+
 })
