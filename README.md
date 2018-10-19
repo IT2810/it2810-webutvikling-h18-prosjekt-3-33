@@ -21,7 +21,9 @@ Appen vår er opprettet med kommandoen `expo init`. I denne templaten lå det et
 Komponent- og mappestrukturen vår følger navigeringsflyten i stor grad. Hovedskjermene ligger i `/screens`, og videre har vi `/screens/SubXScreen` for hver X av underskjermene. Alle øvrige komponenter (f.eks. `PedometerCounter`) ligger i `/components`-mappen.
 
 Her er en illustrasjon av navigasjons- og komponentstrukturen vår:
+
 ![Navigation and component structure](/prosjekt3/report/comp_struct.png)
+
 
 ## Tredjeparter
 
@@ -36,6 +38,12 @@ Agenda har et spesifikt format på hvordan items objektene skal se ut for å kun
 ### Pedometer
 For å telle skritt i `GoalScreen` brukte vi [`Pedometer`](https://docs.expo.io/versions/latest/sdk/pedometer), som er en kryssplattform-wrapper for Core Motion (iOS) og Google Fit (Android).. Første gang man åpner appen vår blir man derfor spurt om tillatelse til å bruke de aktuelle tjenestene. 
 Merk at Pedometer ikke støtter alle mulige eldre devicer (vi har f.eks. dokumentert at det ikke fungerer på iPhone 5). Det er ikke så mye dokumentasjon om Pedometer, men her er hvertfall en [forklarende diskusjonstråd](https://forums.expo.io/t/pedometer-module-requirements/3766).
+
+### ToggleSwitch
+I appen har man muligheten til å velge hvilke man man ønsker å følge i hjem-skjermen. Ideelt sett skulle man ha kunnet legge til egen-definerte mål, som må bli en fremtidig feature hvis appen videreutvikles. For å skru komponenter av og på, bruker vi [toggle-switch-react-native](https://www.npmjs.com/package/toggle-switch-react-native) som supplerer GUI-et med kjente elemter for binære bruker-operasjoner. 
+
+### Slider
+For å endre på målene sine (se mer utfyllende tutorial under), har vi brukt [react-native-slider](https://facebook.github.io/react-native/docs/slider), som gir en mer brukervennlig input for endring av tall en å skrive inn verdier.
 
 ## Tutorials
 ### Skritt-telling med Pedometer
