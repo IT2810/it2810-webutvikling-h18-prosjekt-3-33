@@ -108,7 +108,6 @@ export default class GoalsScreen extends React.Component {
 					title="Choose goals"
 					onPress={() => this.props.navigation.navigate('EditGoals',
 						{goalChooser: this.state.goalChooser, onLoad: this.onChooseLoad})}/>
-					//Conditional rendering of goal components
 				{this.state.goalChooser.stepGoal ? stepComponent : null}
 				{this.state.goalChooser.studyGoal ? studyComponent : null}
 				{this.state.goalChooser.pushupsGoal ? pushupsComponent : null}

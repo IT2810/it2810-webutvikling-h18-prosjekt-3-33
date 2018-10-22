@@ -19,6 +19,7 @@ exports[`GoalsScreen Testing Snapshot test for EditGoalScreen 1`] = `
     }
   >
     <ToggleSwitch
+      isOn={undefined}
       label="Track number of steps"
       labelStyle={
         Object {
@@ -41,6 +42,7 @@ exports[`GoalsScreen Testing Snapshot test for EditGoalScreen 1`] = `
     }
   >
     <ToggleSwitch
+      isOn={undefined}
       label="Track hours of studying"
       labelStyle={
         Object {
@@ -57,6 +59,7 @@ exports[`GoalsScreen Testing Snapshot test for EditGoalScreen 1`] = `
   </View>
   <View>
     <ToggleSwitch
+      isOn={undefined}
       label="Track number of pushups"
       labelStyle={
         Object {

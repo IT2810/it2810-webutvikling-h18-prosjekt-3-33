@@ -65,6 +65,7 @@ exports[`EditGoalScreen  renders the EditPushupsGoal 1`] = `
         }
       />
       <View
+        collapsable={undefined}
         renderToHardwareTextureAndroid={true}
         style={
           Object {
@@ -78,6 +79,7 @@ exports[`EditGoalScreen  renders the EditPushupsGoal 1`] = `
         }
       />
       <View
+        collapsable={undefined}
         onLayout={[Function]}
         renderToHardwareTextureAndroid={true}
         style={
